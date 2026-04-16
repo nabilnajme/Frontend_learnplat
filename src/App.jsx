@@ -8,6 +8,9 @@ import CoursesList from "./CoursesList";
 import FormateurCourses from "./FormateurCourses";
 import Profile from "./Profile";
 import CoursDetaill from "./CoursDetaill";
+import Quiz from "./Quiz";
+import Results from "./Results";
+
 export const API = "http://localhost:8000/api";
 
 function App() {
@@ -25,6 +28,9 @@ function App() {
           />
           <Route path="dashboard/apprenant/profile" element={<Profile />} />
           <Route path="/courses/:id/details" element={<CoursDetaill />} />
+          <Route path="/quiz/:id" element={<Quiz />} />
+          <Route path="/my-results" element={<Results />} />
+
           {/*==================Formateur Dashboard ===============================  */}
           <Route path="/dashboard/formateur" element={<FormateurDashboard />} />
           <Route

@@ -70,15 +70,15 @@ function ApprenantDashboard() {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/my-results" className="link ">
+              My results
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/dashboard/apprenant/profile" className="link">
               Settings
             </NavLink>
           </li>
-          {/* <li>
-            <NavLink to="/progression" className="link ">
-              Ma progression
-            </NavLink>
-          </li> */}
         </ul>
 
         <div className="sidebar__bottom">

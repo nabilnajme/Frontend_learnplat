@@ -46,11 +46,11 @@ export default function CoursDetaill() {
         <p>{course.description || "Pas de description."}</p>
         <div className="hero-stats">
           <div className="stat">
-            <span className="stat-icon">📖</span>
+            <span className="stat-icon"></span>
             <span>{course.chapters.length} chapitres</span>
           </div>
           <div className="stat">
-            <span className="stat-icon">📝</span>
+            <span className="stat-icon"></span>
             <span>
               {course.quizzes.length} quiz
               {course.quizzes.length > 1 ? "" : ""}
@@ -75,7 +75,7 @@ export default function CoursDetaill() {
                   {chapter.title}
                 </label>
                 <div className="accordion-body">
-                  <p>{chapter.content || "Pas de contenu."}</p>
+                  <p>{chapter.content}</p>
                 </div>
               </div>
             ))
@@ -98,7 +98,12 @@ export default function CoursDetaill() {
                     </p>
                   </div>
                 </div>
-                <button className="quiz-btn">Commencer</button>
+                <button
+                  className="quiz-btn"
+                  onClick={() => navigate(`/quiz/${quiz.id}`)}
+                >
+                  Commencer
+                </button>
               </div>
             ))
           )}
