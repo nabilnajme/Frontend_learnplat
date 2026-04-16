@@ -1,0 +1,356 @@
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.detail-page {
+  min-height: auto;
+  background: #f0f2f8;
+  font-family: "DM Sans", sans-serif;
+  padding: 40px;
+}
+
+.detail-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: "DM Sans", sans-serif;
+  color: #888;
+}
+
+/* ---- back ---- */
+.back-btn {
+  padding: 12px 28px;
+  background: #0f1f45;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+}
+
+.back-btn:hover {
+  color: #d0d3da;
+  transform: translateX(-1px);
+}
+
+/* ---- HERO CARD ---- */
+.hero-card {
+  background: #1a56db;
+  border-radius: 20px;
+  padding: 36px 40px;
+
+  position: relative;
+  overflow: hidden;
+  max-width: 800px; /* keep limited width */
+  margin-bottom: 30px;
+
+  margin-top: 70px;
+}
+
+.hero-card::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+}
+
+.hero-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.hero-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+.hero-author {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.hero-card h1 {
+  font-size: 30px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.hero-card p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  max-width: 580px;
+  margin-bottom: 24px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 24px;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.stat-icon {
+  font-size: 15px;
+}
+
+/* ---- BODY ---- */
+.detail-body {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* ---- SECTION CARD ---- */
+.section-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 2px 12px rgba(15, 31, 69, 0.06);
+}
+
+.section-title {
+  font-family: "Syne", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid #f0f2f8;
+}
+
+.empty-msg {
+  font-size: 14px;
+  color: #bbb;
+  padding: 10px 0;
+}
+
+/* ---- CHAPTER ROW ---- */
+.chapter-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.chapter-row:last-child {
+  border-bottom: none;
+}
+
+.chapter-num {
+  font-family: "Syne", sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #c8d0e8;
+  min-width: 28px;
+  padding-top: 2px;
+}
+
+.chapter-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+
+.chapter-content {
+  font-size: 13px;
+  color: #999;
+  line-height: 1.6;
+}
+
+/* ---- QUIZ ROW ---- */
+.quiz-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid #f5f5f5;
+  gap: 16px;
+}
+
+.quiz-row:last-child {
+  border-bottom: none;
+}
+
+.quiz-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.quiz-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e8f0ff;
+  color: #1a56db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.quiz-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a2e;
+  margin-bottom: 4px;
+}
+
+.quiz-duration {
+  font-size: 12px;
+  color: #999;
+}
+
+.quiz-btn {
+  padding: 8px 20px;
+  background: #1a56db;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s;
+}
+
+.quiz-btn:hover {
+  background: #1445b5;
+}
+
+/* Accordion styling */
+.accordion {
+  border: 1px solid #f0f2f8;
+  border-radius: 12px;
+  margin-bottom: 16px; /* space between accordions */
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(15, 31, 69, 0.05);
+}
+
+.accordion input {
+  display: none;
+}
+
+.accordion-header {
+  display: block;
+  background: #f8f9fc;
+  color: #1a1a2e;
+  font-family: "Syne", sans-serif;
+  font-weight: 600;
+  padding: 14px 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.accordion-header:hover {
+  background: #e8f0ff;
+}
+
+.accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 18px;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  transition:
+    max-height 0.3s ease,
+    padding 0.3s ease;
+}
+
+.accordion input:checked ~ .accordion-body {
+  max-height: 300px;
+  padding: 14px 18px;
+}
+
+.section-card.narrow-card {
+  max-width: 700px;
+  margin-bottom: 30px;
+  margin-left: 50px;
+}
+
+.section-card.quiz-one {
+  max-width: 900px;
+}
+
+.section-card.narrow-card,
+.section-card.quiz-one {
+  flex: 1; /* take equal space */
+  max-width: 80%; /* let flexbox control width */
+  margin-left: 0; /* remove manual left margin */
+}
+
+.section-card.quiz-one {
+  flex: 0.82;
+  max-width: 100%;
+}
+
+.nav_details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 80px; /* space below nav */
+  margin-right: 80px; /* space below nav */
+}
+
+.profile_button {
+  background: #0f1f45;
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px; /* ✅ spacing from right edge */
+  transition:
+    background 0.2s,
+    transform 0.15s;
+}
+
+.profile_button:hover {
+  background: #060d1b;
+  transform: scale(1.025);
+}
+
+.avatar {
+  color: #fff;
+  font-family: "Syne", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+}

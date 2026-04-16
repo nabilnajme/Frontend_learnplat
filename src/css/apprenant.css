@@ -1,0 +1,272 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.layout {
+  display: flex;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.sidebar {
+  width: 220px;
+  background: #0f1f45;
+  color: #c8d6f5;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 14px;
+  position: fixed;
+  height: 100vh;
+}
+
+.sidebar__brand {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 32px;
+  padding-left: 8px;
+}
+
+.sidebar__links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.link {
+  display: block;
+  padding: 10px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #c8d6f5;
+  font-size: 14px;
+  opacity: 0.7;
+  transition:
+    opacity 0.2s,
+    background 0.2s;
+}
+
+.link:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.07);
+}
+.link.active {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.13);
+  color: #fff;
+}
+
+.sidebar__bottom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 14px;
+}
+
+.profile-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #c8d6f5;
+  text-align: left;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.profile-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.username {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+}
+.role {
+  font-size: 11px;
+  opacity: 0.55;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #c8d6f5;
+  font-size: 20px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  opacity: 0.5;
+  transition:
+    opacity 0.2s,
+    color 0.2s;
+}
+
+.logout-btn:hover {
+  opacity: 1;
+  color: #ff6b6b;
+}
+
+/* ==========================================Courses css================== */
+.main {
+  margin-left: 220px;
+  padding: 40px;
+  flex: 1;
+  background: #f4f6fb;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.main h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 6px;
+}
+
+.main > p {
+  color: #888;
+  font-size: 14px;
+  margin-bottom: 40px;
+}
+
+.page-subtitle {
+  color: #888;
+  font-size: 14px;
+  margin-top: 4px;
+  margin-bottom: 28px;
+}
+
+.empty {
+  color: #aaa;
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 22px;
+}
+
+.course-card {
+  background: #fff;
+  border: 1px solid #e8eaf0;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.course-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #0f1f45, #3b5fc0);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(15, 31, 69, 0.1);
+}
+
+.course-card:hover::after {
+  opacity: 1;
+}
+
+.course-card h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a2e;
+  line-height: 1.4;
+}
+
+.course-card p {
+  font-size: 13px;
+  color: #777;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #f0f2f8;
+  padding-top: 12px;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #999;
+}
+
+.course-card .enroll-btn {
+  background: #3b5fc0;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px; /* top/bottom 6px, left/right 14px */
+  display: inline-block; /* ensures padding applies correctly */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.course-card .enroll-btn:hover {
+  background: #412525;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(15, 31, 69, 0.2);
+}
+
+/* =======================================my cours========================== */
+
+.details-link {
+  margin-left: 8px;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.details-link:hover {
+  text-decoration: underline;
+}
+
+.arrow {
+  font-weight: bold;
+  margin-left: 4px;
+}
