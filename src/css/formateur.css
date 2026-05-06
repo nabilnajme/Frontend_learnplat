@@ -10,7 +10,8 @@
   font-family: "Segoe UI", sans-serif;
 }
 
-.sidebar_form {
+/* ======== SIDEBAR ======== */
+.sidebar {
   width: 220px;
   background: #0d2b1f;
   color: #b8dfc9;
@@ -53,11 +54,6 @@
 .link:hover {
   opacity: 1;
   background: rgba(255, 255, 255, 0.07);
-}
-.link.active {
-  opacity: 1;
-  background: rgba(255, 255, 255, 0.13);
-  color: #fff;
 }
 
 .sidebar__bottom {
@@ -130,16 +126,274 @@
   color: #ff6b6b;
 }
 
-.main {
+/* ======== MAIN ======== */
+.f-main {
   margin-left: 220px;
   padding: 40px;
   flex: 1;
+  background: #f6f8f4;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
-.main h1 {
-  font-size: 24px;
+/* ======== WELCOME ======== */
+.f-welcome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.f-welcome h1 {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0d2b1f;
+  margin-bottom: 4px;
+}
+
+.f-welcome p {
+  font-size: 14px;
+  color: #888;
+}
+
+.f-create-btn {
+  padding: 11px 22px;
+  background: #0d2b1f;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.1s;
+  white-space: nowrap;
+}
+
+.f-create-btn:hover {
+  background: #145232;
+  transform: translateY(-1px);
+}
+
+/* ======== STAT CARDS ======== */
+.f-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.f-stat-card {
+  border-radius: 16px;
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.f-stat-card::after {
+  content: "";
+  position: absolute;
+  bottom: -24px;
+  right: -24px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.f-stat-blue {
+  background: #0d2b1f;
+}
+.f-stat-green {
+  background: #10b981;
+}
+.f-stat-indigo {
+  background: #6366f1;
+}
+.f-stat-amber {
+  background: #f59e0b;
+}
+
+.f-stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+
+.f-stat-num {
+  font-size: 38px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.f-stat-hint {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* ======== INFO CARDS ======== */
+.f-info-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.f-info-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 24px;
+  border: 1.5px solid #eef2ee;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+
+.f-info-card:hover {
+  box-shadow: 0 8px 28px rgba(13, 43, 31, 0.08);
+  transform: translateY(-3px);
+}
+
+.f-info-icon {
+  font-size: 28px;
+  margin-bottom: 14px;
+}
+
+.f-info-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0d2b1f;
   margin-bottom: 8px;
 }
-.main p {
+
+.f-info-card p {
+  font-size: 13px;
   color: #888;
+  line-height: 1.7;
+}
+
+/* ======== MY COURSES PAGE ======== */
+.f-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 80px 0;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.f-empty span {
+  font-size: 44px;
+}
+
+.f-courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.f-course-row {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: 1.5px solid #eef2ee;
+  transition: box-shadow 0.2s;
+}
+
+.f-course-row:hover {
+  box-shadow: 0 4px 20px rgba(13, 43, 31, 0.07);
+}
+
+.f-course-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0d2b1f, #1a6636);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.f-course-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.f-course-info h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0d2b1f;
+  margin-bottom: 4px;
+}
+
+.f-course-info p {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.f-course-students {
+  font-size: 12px;
+  color: #10b981;
+  font-weight: 600;
+}
+
+.f-course-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.f-badge-published {
+  padding: 5px 14px;
+  background: #e6f4ec;
+  color: #1a6636;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.f-badge-draft {
+  padding: 5px 14px;
+  background: #fef9ec;
+  color: #b45309;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.f-publish-btn {
+  padding: 7px 16px;
+  background: #0d2b1f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.f-publish-btn:hover {
+  background: #145232;
 }

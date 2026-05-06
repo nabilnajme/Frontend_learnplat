@@ -1,0 +1,406 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ======== SHARED ======== */
+.studio-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: "Inter", sans-serif;
+  color: #888;
+}
+
+.studio-back {
+  background: none;
+  border: 1.5px solid #e0e0e0;
+  color: #555;
+  font-size: 13px;
+  font-family: "Inter", sans-serif;
+  padding: 8px 18px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+  display: inline-block;
+  margin-bottom: 28px;
+}
+
+.studio-back:hover {
+  border-color: #999;
+  color: #111;
+}
+
+.studio-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.studio-field label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.studio-field input,
+.studio-field textarea {
+  padding: 12px 14px;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: sans-serif;
+  color: #111;
+  background: #fafafa;
+  resize: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.studio-field input:focus,
+.studio-field textarea:focus {
+  outline: none;
+  border-color: #0d2b1f;
+  box-shadow: 0 0 0 3px rgba(13, 43, 31, 0.07);
+}
+
+/* ======== STUDIO PAGE ======== */
+.studio-page {
+  min-height: 100vh;
+  background: #f5f6fa;
+  font-family: "Inter", sans-serif;
+  padding: 32px 48px 80px;
+}
+
+/* top nav */
+.studio-topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.studio-top-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-edit {
+  padding: 9px 18px;
+  background: #fff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  color: #333;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.btn-edit:hover {
+  border-color: #0d2b1f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.btn-delete-course {
+  padding: 9px 18px;
+  background: #fff0f0;
+  border: 1.5px solid #ffd0d0;
+  border-radius: 10px;
+  font-size: 13px;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  color: #c0392b;
+  transition: background 0.2s;
+}
+
+.btn-delete-course:hover {
+  background: #ffe0e0;
+}
+
+/* hero */
+.studio-hero {
+  background: #0d2b1f;
+  border-radius: 20px;
+  padding: 36px 40px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.studio-hero::after {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.studio-category {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.studio-hero-left h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.studio-hero-left p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+.studio-hero-stats {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.studio-stat {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 80px;
+}
+
+.studio-stat-num {
+  font-family: "Inter", sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.studio-stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.studio-pub {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 20px;
+}
+
+.pub-yes {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+.pub-no {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+}
+
+/* body */
+.studio-body {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* cards */
+.studio-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
+}
+
+.studio-card h2 {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid #f4f4f4;
+}
+
+.btn-add-chapter {
+  padding: 11px 24px;
+  background: #0d2b1f;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-add-chapter:hover {
+  background: #145232;
+}
+
+/* chapter rows */
+.studio-chapters {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.studio-chapter-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 12px;
+  border-radius: 12px;
+  transition: background 0.15s;
+}
+
+.studio-chapter-row:hover {
+  background: #f8f9fb;
+}
+
+.studio-chapter-num {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: #ccc;
+  min-width: 28px;
+}
+
+.studio-chapter-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.studio-chapter-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 3px;
+}
+
+.studio-chapter-content {
+  font-size: 12px;
+  color: #aaa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.studio-chapter-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-edit-chapter {
+  padding: 6px 14px;
+  background: #f0f4f0;
+  color: #0d2b1f;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: "Inter", sans-serif;
+}
+
+.btn-edit-chapter:hover {
+  background: #ddeedd;
+}
+
+.btn-delete-chapter {
+  padding: 6px 14px;
+  background: #fff0f0;
+  color: #c0392b;
+  border: none;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-family: "Inter", sans-serif;
+}
+
+.btn-delete-chapter:hover {
+  background: #ffe0e0;
+}
+
+.studio-empty {
+  font-size: 14px;
+  color: #bbb;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* ======== EDIT PAGES ======== */
+.edit-page {
+  min-height: 100vh;
+  background: #f5f6fa;
+  font-family: "Inter", sans-serif;
+  padding: 40px 48px;
+}
+
+.edit-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px;
+  max-width: 560px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+}
+
+.edit-card h1 {
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f4f4f4;
+}
+
+.edit-success {
+  background: #e6f4ec;
+  color: #1a6636;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 20px;
+  font-weight: 500;
+}

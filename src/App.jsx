@@ -10,6 +10,10 @@ import Profile from "./Profile";
 import CoursDetaill from "./CoursDetaill";
 import Quiz from "./Quiz";
 import Results from "./Results";
+import FormCreatecourse from "./FormCreatecourse";
+import CourseStudio from "./CourseStudio";
+import EditChapter from "./EditChapter";
+import EditCourse from "./EditCourse";
 
 export const API = "http://localhost:8000/api";
 
@@ -37,6 +41,18 @@ function App() {
             path="/dashboard/formateur/courses"
             element={<FormateurCourses />}
           />
+          <Route path="/dashboard/formateur" element={<FormateurDashboard />} />
+          <Route
+            path="/dashboard/formateur/courses"
+            element={<FormateurCourses />}
+          />
+          <Route
+            path="/dashboard/formateur/create"
+            element={<FormCreatecourse />}
+          />
+          <Route path="/studio/:id" element={<CourseStudio />} />
+          <Route path="/studio/:id/edit" element={<EditCourse />} />
+          <Route path="/studio/chapter/:id/edit" element={<EditChapter />} />
         </Routes>
       </Router>
     </>
