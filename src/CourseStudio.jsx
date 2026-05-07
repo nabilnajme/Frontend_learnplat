@@ -12,8 +12,15 @@ export default function CourseStudio() {
 
   const [course, setCourse] = useState(null);
   const [chapters, setChapters] = useState([]);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+
+  const [chapterTitle, setChapterTitle] = useState("");
+  const [chapterContent, setChapterContent] = useState("");
+
+  const [quizTitle, setQuizTitle] = useState("");
+  const [quizDuration, setQuizDuration] = useState("");
+
+  const [quizzes, setQuizzes] = useState([]);
+  const [analytics, setAnalytics] = useState(null);
 
   // load course + chapters
   useEffect(() => {
@@ -21,33 +28,69 @@ export default function CourseStudio() {
       setCourse(res.data);
       setChapters(res.data.chapters);
     });
+
+    axios.get(API + `/courses/${id}/quizzes`, { headers }).then((res) => {
+      setQuizzes(res.data);
+    });
+
+    axios
+      .get(API + `/courses/${id}/quiz-analytics`, { headers })
+      .then((res) => {
+        setAnalytics(res.data);
+      });
   }, []);
 
   // add chapter
-  async function handleAddChapter(e) {
+  const handleAddChapter = async (e) => {
     e.preventDefault();
     const res = await axios.post(
       API + `/courses/${id}/chapters`,
-      { title, content },
+      { title: chapterTitle, content: chapterContent },
       { headers },
     );
     setChapters([...chapters, res.data]);
-    setTitle("");
-    setContent("");
-  }
+    setChapterTitle("");
+    setChapterContent("");
+  };
 
   // delete chapter
-  async function handleDeleteChapter(chapterId) {
+  const handleDeleteChapter = async (chapterId) => {
     await axios.delete(API + `/chapters/${chapterId}`, { headers });
     setChapters(chapters.filter((c) => c.id !== chapterId));
-  }
+  };
 
   // delete course
-  async function handleDeleteCourse() {
+  const handleDeleteCourse = async (id) => {
     if (!window.confirm("Supprimer ce cours définitivement ?")) return;
-    await axios.delete(API + `/courses/${id}`, { headers });
-    navigate("/dashboard/formateur/courses");
-  }
+    try {
+      await axios.delete(API + `/courses/${id}`, { headers });
+      navigate("/dashboard/formateur/courses");
+    } catch (err) {
+      console.error(err.response);
+      if (err.response?.status === 400) {
+        alert(err.response.data.error);
+      } else {
+        alert("Erreur lors de la suppression.");
+      }
+    }
+  };
+
+  const handleAddQuiz = async (e) => {
+    e.preventDefault();
+    const res = await axios.post(
+      API + `/courses/${id}/quizzes`,
+      { title: quizTitle, duration_minutes: quizDuration },
+      { headers },
+    );
+    setQuizzes([...quizzes, res.data]);
+    setQuizTitle("");
+    setQuizDuration("");
+  };
+
+  const handleDeleteQuiz = async (quizId) => {
+    await axios.delete(API + `/quizzes/${quizId}`, { headers });
+    setQuizzes(quizzes.filter((q) => q.id !== quizId));
+  };
 
   if (!course) return <div className="studio-loading">Chargement...</div>;
 
@@ -68,7 +111,10 @@ export default function CourseStudio() {
           >
             ✏️ Modifier le cours
           </button>
-          <button className="btn-delete-course" onClick={handleDeleteCourse}>
+          <button
+            className="btn-delete-course"
+            onClick={() => handleDeleteCourse(course.id)}
+          >
             🗑 Supprimer
           </button>
         </div>
@@ -122,8 +168,8 @@ export default function CourseStudio() {
               <input
                 type="text"
                 placeholder="Ex: Introduction aux variables"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={chapterTitle}
+                onChange={(e) => setChapterTitle(e.target.value)}
                 required
               />
             </div>
@@ -132,8 +178,8 @@ export default function CourseStudio() {
               <textarea
                 placeholder="Écrivez le contenu du chapitre..."
                 rows={4}
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
+                value={chapterContent}
+                onChange={(e) => setChapterContent(e.target.value)}
               />
             </div>
             <button type="submit" className="btn-add-chapter">
@@ -182,6 +228,108 @@ export default function CourseStudio() {
               ))}
             </div>
           )}
+        </div>
+
+        {/* ===== QUIZ ANALYTICS ===== */}
+        <div className="studio-section-title">📊 Analytiques des Quiz</div>
+        <div className="studio-analytics">
+          <div className="analytics-card analytics-blue">
+            <p className="analytics-label">Tentatives totales</p>
+            <p className="analytics-num">{analytics?.total_attempts ?? 0}</p>
+            <p className="analytics-hint">étudiants ont passé un quiz</p>
+          </div>
+          <div className="analytics-card analytics-green">
+            <p className="analytics-label">Quiz réussis</p>
+            <p className="analytics-num">{analytics?.passed ?? 0}</p>
+            <p className="analytics-hint">score ≥ 70%</p>
+          </div>
+          <div className="analytics-card analytics-indigo">
+            <p className="analytics-label">Score moyen</p>
+            <p className="analytics-num">{analytics?.avg_score ?? 0}%</p>
+            <p className="analytics-hint">moyenne globale</p>
+          </div>
+          <div className="analytics-card analytics-amber">
+            <p className="analytics-label">Taux de réussite</p>
+            <p className="analytics-num">{analytics?.success_rate ?? 0}%</p>
+            <p className="analytics-hint">réussis / total</p>
+          </div>
+        </div>
+        {/* ===== QUIZ SECTION ===== */}
+        <div className="studio-body" style={{ marginTop: "24px" }}>
+          <div className="studio-card">
+            <h2>➕ Ajouter un quiz</h2>
+            <form onSubmit={handleAddQuiz}>
+              <div className="studio-field">
+                <label>Titre du quiz</label>
+                <input
+                  type="text"
+                  placeholder="Ex: Quiz final - Variables"
+                  value={quizTitle}
+                  onChange={(e) => setQuizTitle(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="studio-field">
+                <label>Durée (minutes)</label>
+                <input
+                  type="number"
+                  placeholder="Ex: 30"
+                  min="1"
+                  value={quizDuration}
+                  onChange={(e) => setQuizDuration(e.target.value)}
+                  required
+                />
+              </div>
+              <button type="submit" className="btn-add-chapter">
+                Ajouter le quiz
+              </button>
+            </form>
+          </div>
+
+          <div className="studio-card">
+            <h2>📝 Quiz ({quizzes.length})</h2>
+            {quizzes.length === 0 ? (
+              <p className="studio-empty">Aucun quiz pour l'instant.</p>
+            ) : (
+              <div className="studio-chapters">
+                {quizzes.map((quiz, index) => (
+                  <div className="studio-chapter-row" key={quiz.id}>
+                    <div className="studio-chapter-num">
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
+                    <div className="studio-chapter-info">
+                      <p className="studio-chapter-title">{quiz.title}</p>
+                      <p className="studio-chapter-content">
+                        ⏱ {quiz.duration_minutes} min
+                      </p>
+                    </div>
+                    <div className="studio-chapter-actions">
+                      <button
+                        className="btn-edit-chapter"
+                        onClick={() =>
+                          navigate(`/studio/quiz/${quiz.id}/questions`)
+                        }
+                      >
+                        Questions
+                      </button>
+                      <button
+                        className="btn-edit-chapter"
+                        onClick={() => navigate(`/studio/quiz/${quiz.id}/edit`)}
+                      >
+                        Modifier
+                      </button>
+                      <button
+                        className="btn-delete-chapter"
+                        onClick={() => handleDeleteQuiz(quiz.id)}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

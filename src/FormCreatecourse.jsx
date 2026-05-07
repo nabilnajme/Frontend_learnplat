@@ -23,7 +23,11 @@ export default function FormCreatecourse() {
       setSuccess("✓ Cours créé avec succès !");
       setForm({ title: "", description: "", category: "" });
 
-      setTimeout(() => setSuccess(""), 4000);
+      setTimeout(() => {
+        (setSuccess(""), 3000);
+
+        navigate("/dashboard/formateur/courses");
+      });
     } catch (_) {
       alert("Erreur lors de la création.");
     }

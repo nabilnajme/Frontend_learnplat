@@ -1,0 +1,283 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.qq-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-family: "Inter", sans-serif;
+  color: #888;
+}
+
+.qq-page {
+  min-height: 100vh;
+  background: #0f1f45;
+  font-family: "Inter", sans-serif;
+  padding: 36px 48px 80px;
+}
+
+/* back */
+.qq-back {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  font-family: "DM Sans", sans-serif;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 36px;
+  display: inline-block;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.qq-back:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+/* header */
+.qq-header {
+  margin-bottom: 40px;
+}
+
+.qq-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.qq-header h1 {
+  font-family: "Syne", sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.qq-header p {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* body layout */
+.qq-body {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* form card */
+.qq-form-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 28px;
+}
+
+.qq-form-card h2 {
+  font-family: "Syne", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* fields */
+.qq-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.qq-field label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.qq-field input,
+.qq-field textarea,
+.qq-field select {
+  padding: 11px 14px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: "DM Sans", sans-serif;
+  color: #fff;
+  resize: none;
+  transition: border-color 0.2s;
+}
+
+.qq-field input::placeholder,
+.qq-field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+.qq-field select option {
+  background: #1a2a4a;
+  color: #fff;
+}
+
+.qq-field input:focus,
+.qq-field textarea:focus,
+.qq-field select:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* options grid */
+.qq-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+/* submit */
+.qq-submit {
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  color: #0f1f45;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  margin-top: 6px;
+  transition:
+    background 0.2s,
+    transform 0.1s;
+}
+
+.qq-submit:hover {
+  background: #e8eaf0;
+  transform: translateY(-1px);
+}
+
+/* list card */
+.qq-list-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 18px;
+  padding: 28px;
+}
+
+.qq-list-card h2 {
+  font-family: "Syne", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.qq-empty {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.25);
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* question row */
+.qq-question-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 12px;
+  border-radius: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.15s;
+}
+
+.qq-question-row:last-child {
+  border-bottom: none;
+}
+.qq-question-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.qq-question-num {
+  font-family: "Syne", sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.2);
+  min-width: 28px;
+  padding-top: 2px;
+}
+
+.qq-question-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.qq-question-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.qq-options-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.qq-opt {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.qq-opt-correct {
+  background: rgba(52, 211, 153, 0.2);
+  color: #34d399;
+  font-weight: 600;
+}
+
+.qq-delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  opacity: 0.4;
+  padding: 4px;
+  border-radius: 6px;
+  transition:
+    opacity 0.2s,
+    background 0.2s;
+  flex-shrink: 0;
+}
+
+.qq-delete-btn:hover {
+  opacity: 1;
+  background: rgba(255, 80, 80, 0.15);
+}

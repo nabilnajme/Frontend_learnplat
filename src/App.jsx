@@ -15,6 +15,10 @@ import CourseStudio from "./CourseStudio";
 import EditChapter from "./EditChapter";
 import EditCourse from "./EditCourse";
 
+import QuizQuestions from "./QuizQuestions";
+
+import EditQuiz from "./EditQuiz";
+
 export const API = "http://localhost:8000/api";
 
 function App() {
@@ -53,6 +57,11 @@ function App() {
           <Route path="/studio/:id" element={<CourseStudio />} />
           <Route path="/studio/:id/edit" element={<EditCourse />} />
           <Route path="/studio/chapter/:id/edit" element={<EditChapter />} />
+          <Route path="/studio/quiz/:id/edit" element={<EditQuiz />} />
+          <Route
+            path="/studio/quiz/:id/questions"
+            element={<QuizQuestions />}
+          />
         </Routes>
       </Router>
     </>
