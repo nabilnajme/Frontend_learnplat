@@ -158,6 +158,8 @@ export default function CourseStudio() {
         </div>
       </div>
 
+      <h2 className="section-title">Chapitre Section</h2>
+
       <div className="studio-body">
         {/* ADD CHAPTER FORM */}
         <div className="studio-card">
@@ -230,105 +232,115 @@ export default function CourseStudio() {
           )}
         </div>
 
-        {/* ===== QUIZ ANALYTICS ===== */}
-        <div className="studio-section-title">📊 Analytiques des Quiz</div>
-        <div className="studio-analytics">
-          <div className="analytics-card analytics-blue">
-            <p className="analytics-label">Tentatives totales</p>
-            <p className="analytics-num">{analytics?.total_attempts ?? 0}</p>
-            <p className="analytics-hint">étudiants ont passé un quiz</p>
-          </div>
-          <div className="analytics-card analytics-green">
-            <p className="analytics-label">Quiz réussis</p>
-            <p className="analytics-num">{analytics?.passed ?? 0}</p>
-            <p className="analytics-hint">score ≥ 70%</p>
-          </div>
-          <div className="analytics-card analytics-indigo">
-            <p className="analytics-label">Score moyen</p>
-            <p className="analytics-num">{analytics?.avg_score ?? 0}%</p>
-            <p className="analytics-hint">moyenne globale</p>
-          </div>
-          <div className="analytics-card analytics-amber">
-            <p className="analytics-label">Taux de réussite</p>
-            <p className="analytics-num">{analytics?.success_rate ?? 0}%</p>
-            <p className="analytics-hint">réussis / total</p>
-          </div>
-        </div>
         {/* ===== QUIZ SECTION ===== */}
-        <div className="studio-body" style={{ marginTop: "24px" }}>
-          <div className="studio-card">
-            <h2>➕ Ajouter un quiz</h2>
-            <form onSubmit={handleAddQuiz}>
-              <div className="studio-field">
-                <label>Titre du quiz</label>
-                <input
-                  type="text"
-                  placeholder="Ex: Quiz final - Variables"
-                  value={quizTitle}
-                  onChange={(e) => setQuizTitle(e.target.value)}
-                  required
-                />
+        <div className="quiz-section">
+          {/* Header block: title + analytics stacked */}
+          <div className="quiz-header">
+            <h1 className="studio-section-title">Quiz Section</h1>
+            <div className="studio-analytics">
+              <div className="analytics-card analytics-blue">
+                <p className="analytics-label">Tentatives totales</p>
+                <p className="analytics-num">
+                  {analytics?.total_attempts ?? 0}
+                </p>
+                <p className="analytics-hint">étudiants ont passé un quiz</p>
               </div>
-              <div className="studio-field">
-                <label>Durée (minutes)</label>
-                <input
-                  type="number"
-                  placeholder="Ex: 30"
-                  min="1"
-                  value={quizDuration}
-                  onChange={(e) => setQuizDuration(e.target.value)}
-                  required
-                />
+              <div className="analytics-card analytics-green">
+                <p className="analytics-label">Quiz réussis</p>
+                <p className="analytics-num">{analytics?.passed ?? 0}</p>
+                <p className="analytics-hint">score ≥ 70%</p>
               </div>
-              <button type="submit" className="btn-add-chapter">
-                Ajouter le quiz
-              </button>
-            </form>
+              <div className="analytics-card analytics-indigo">
+                <p className="analytics-label">Score moyen</p>
+                <p className="analytics-num">{analytics?.avg_score ?? 0}%</p>
+                <p className="analytics-hint">moyenne globale</p>
+              </div>
+              <div className="analytics-card analytics-amber">
+                <p className="analytics-label">Taux de réussite</p>
+                <p className="analytics-num">{analytics?.success_rate ?? 0}%</p>
+                <p className="analytics-hint">réussis / total</p>
+              </div>
+            </div>
           </div>
 
-          <div className="studio-card">
-            <h2>📝 Quiz ({quizzes.length})</h2>
-            {quizzes.length === 0 ? (
-              <p className="studio-empty">Aucun quiz pour l'instant.</p>
-            ) : (
-              <div className="studio-chapters">
-                {quizzes.map((quiz, index) => (
-                  <div className="studio-chapter-row" key={quiz.id}>
-                    <div className="studio-chapter-num">
-                      {String(index + 1).padStart(2, "0")}
+          {/* Body block: form + list side by side */}
+          <div className="quiz-body">
+            <div className="studio-card">
+              <h2>➕ Ajouter un quiz</h2>
+              <form onSubmit={handleAddQuiz}>
+                <div className="studio-field">
+                  <label>Titre du quiz</label>
+                  <input
+                    type="text"
+                    placeholder="Ex: Quiz final - Variables"
+                    value={quizTitle}
+                    onChange={(e) => setQuizTitle(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="studio-field">
+                  <label>Durée (minutes)</label>
+                  <input
+                    type="number"
+                    placeholder="Ex: 30"
+                    min="1"
+                    value={quizDuration}
+                    onChange={(e) => setQuizDuration(e.target.value)}
+                    required
+                  />
+                </div>
+                <button type="submit" className="btn-add-chapter">
+                  Ajouter le quiz
+                </button>
+              </form>
+            </div>
+
+            <div className="studio-card">
+              <h2>📝 Quiz ({quizzes.length})</h2>
+              {quizzes.length === 0 ? (
+                <p className="studio-empty">Aucun quiz pour l'instant.</p>
+              ) : (
+                <div className="studio-chapters">
+                  {quizzes.map((quiz, index) => (
+                    <div className="studio-chapter-row" key={quiz.id}>
+                      <div className="studio-chapter-num">
+                        {String(index + 1).padStart(2, "0")}
+                      </div>
+                      <div className="studio-chapter-info">
+                        <p className="studio-chapter-title">{quiz.title}</p>
+                        <p className="studio-chapter-content">
+                          ⏱ {quiz.duration_minutes} min
+                        </p>
+                      </div>
+                      <div className="studio-chapter-actions">
+                        <button
+                          className="btn-edit-chapter"
+                          onClick={() =>
+                            navigate(`/studio/quiz/${quiz.id}/questions`)
+                          }
+                        >
+                          Questions
+                        </button>
+                        <button
+                          className="btn-edit-chapter"
+                          onClick={() =>
+                            navigate(`/studio/quiz/${quiz.id}/edit`)
+                          }
+                        >
+                          Modifier
+                        </button>
+                        <button
+                          className="btn-delete-chapter"
+                          onClick={() => handleDeleteQuiz(quiz.id)}
+                        >
+                          Supprimer
+                        </button>
+                      </div>
                     </div>
-                    <div className="studio-chapter-info">
-                      <p className="studio-chapter-title">{quiz.title}</p>
-                      <p className="studio-chapter-content">
-                        ⏱ {quiz.duration_minutes} min
-                      </p>
-                    </div>
-                    <div className="studio-chapter-actions">
-                      <button
-                        className="btn-edit-chapter"
-                        onClick={() =>
-                          navigate(`/studio/quiz/${quiz.id}/questions`)
-                        }
-                      >
-                        Questions
-                      </button>
-                      <button
-                        className="btn-edit-chapter"
-                        onClick={() => navigate(`/studio/quiz/${quiz.id}/edit`)}
-                      >
-                        Modifier
-                      </button>
-                      <button
-                        className="btn-delete-chapter"
-                        onClick={() => handleDeleteQuiz(quiz.id)}
-                      >
-                        Supprimer
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

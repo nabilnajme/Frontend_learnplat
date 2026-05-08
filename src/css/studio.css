@@ -39,8 +39,8 @@
 .studio-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 18px;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 .studio-field label {
@@ -154,6 +154,16 @@
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.04);
 }
+.studio-hero::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+}
 
 .studio-category {
   display: inline-block;
@@ -166,6 +176,15 @@
   padding: 4px 12px;
   border-radius: 20px;
   margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  text-align: center; /* centers the text horizontally */
+  margin: 24px 0; /* adds spacing above and below */
 }
 
 .studio-hero-left h1 {
@@ -237,6 +256,7 @@
   grid-template-columns: 1fr 1.6fr;
   gap: 24px;
   align-items: flex-start;
+  width: 100%;
 }
 
 /* cards */
@@ -424,6 +444,7 @@
 .analytics-card {
   border-radius: 16px;
   padding: 22px 20px;
+  width: 80%;
   position: relative;
   overflow: hidden;
 }
@@ -473,4 +494,34 @@
 .analytics-hint {
   font-size: 11px;
   color: rgba(255, 255, 255, 0.4);
+}
+
+.quiz-section {
+  display: flex;
+  flex-direction: column; /* stack header + body */
+  gap: 32px;
+  width: 100%;
+  grid-column: 1 / -1;
+}
+
+.quiz-section h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.quiz-header {
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.quiz-body {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr; /* form left, list right */
+  gap: 24px;
+  align-items: flex-start;
 }

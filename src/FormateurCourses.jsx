@@ -48,6 +48,11 @@ function FormateurCourses() {
               Mes cours
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard/formateur/profile" className="link">
+              My profile
+            </NavLink>
+          </li>
         </ul>
 
         <div className="sidebar__bottom">

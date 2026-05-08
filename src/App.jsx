@@ -18,6 +18,7 @@ import EditCourse from "./EditCourse";
 import QuizQuestions from "./QuizQuestions";
 
 import EditQuiz from "./EditQuiz";
+import FormateurProfile from "./FormateurProfile";
 
 export const API = "http://localhost:8000/api";
 
@@ -46,6 +47,10 @@ function App() {
             element={<FormateurCourses />}
           />
           <Route path="/dashboard/formateur" element={<FormateurDashboard />} />
+          <Route
+            path="/dashboard/formateur/profile"
+            element={<FormateurProfile />}
+          />
           <Route
             path="/dashboard/formateur/courses"
             element={<FormateurCourses />}

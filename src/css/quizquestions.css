@@ -17,7 +17,7 @@
 
 .qq-page {
   min-height: 100vh;
-  background: #0f1f45;
+  background: #0a2207;
   font-family: "Inter", sans-serif;
   padding: 36px 48px 80px;
 }
@@ -28,7 +28,7 @@
   border: none;
   color: rgba(255, 255, 255, 0.6);
   font-size: 13px;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Inter", sans-serif;
   padding: 8px 18px;
   border-radius: 20px;
   cursor: pointer;
@@ -46,6 +46,10 @@
 
 /* header */
 .qq-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 40px;
 }
 
@@ -63,7 +67,7 @@
 }
 
 .qq-header h1 {
-  font-family: "Syne", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 32px;
   font-weight: 800;
   color: #fff;
@@ -125,7 +129,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   font-size: 14px;
-  font-family: "DM Sans", sans-serif;
+  font-family: "Inter", sans-serif;
   color: #fff;
   resize: none;
   transition: border-color 0.2s;
@@ -160,7 +164,7 @@
   width: 100%;
   padding: 12px;
   background: #fff;
-  color: #0f1f45;
+  color: #0d2b1f;
   border: none;
   border-radius: 10px;
   font-size: 14px;

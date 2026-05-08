@@ -54,6 +54,11 @@ export default function FormCreatecourse() {
               Mes cours
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard/formateur/profile" className="link">
+              My profile
+            </NavLink>
+          </li>
         </ul>
         <div className="sidebar__bottom">
           <button className="profile-btn" onClick={() => navigate("/profil")}>
