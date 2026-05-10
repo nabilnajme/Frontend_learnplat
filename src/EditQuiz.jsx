@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
 import "./css/studio.css";
+import img1 from "./assests/quiz_illu.png";
 
 export default function EditQuiz() {
   const { id } = useParams(); // quiz id
@@ -66,6 +67,15 @@ export default function EditQuiz() {
             Enregistrer
           </button>
         </form>
+      </div>
+
+      <div className="panels-container">
+        <div className="panel-quiz right-panel-quiz">
+          <div className="content-quiz">
+            <h3>Edit Your Quiz</h3>
+          </div>
+          <img src={img1} className="image-quiz" alt="" />
+        </div>
       </div>
     </div>
   );

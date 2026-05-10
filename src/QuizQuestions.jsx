@@ -4,6 +4,7 @@ import axios from "axios";
 import { API } from "./App";
 import "./css/quizquestions.css";
 import img1 from "./assests/delete.png";
+import img2 from "./assests/time.png";
 
 export default function QuizQuestions() {
   const { id } = useParams(); // quiz id
@@ -69,10 +70,14 @@ export default function QuizQuestions() {
       {/* HEADER */}
       <div className="qq-header">
         <div className="qq-badge">Quiz</div>
+
         <h1>{quiz.title}</h1>
-        <p>
-          ⏱ {quiz.duration_minutes} min · {questions.length} question
-        </p>
+        <div className="duration_section">
+          <img className="duration_img" src={img2} alt="time" />
+          <p>
+            {quiz.duration_minutes} min · {questions.length} question
+          </p>
+        </div>
       </div>
 
       <div className="qq-body">

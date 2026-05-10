@@ -76,6 +76,7 @@ export default function EditCourse() {
           </button>
         </form>
       </div>
+
       <div className="panels-container">
         <div className="panel right-panel">
           <div className="content">

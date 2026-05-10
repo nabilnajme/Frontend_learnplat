@@ -339,3 +339,14 @@
 .img-delete {
   width: 20px;
 }
+
+.duration_section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.duration_img {
+  width: 14px;
+}

@@ -4,6 +4,8 @@ import axios from "axios";
 import { API } from "./App";
 import "./css/formateur.css";
 import img1 from "./assests/exit.png";
+import img2 from "./assests/course.png";
+import img3 from "./assests/chapter.png";
 
 function FormateurDashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -13,10 +15,15 @@ function FormateurDashboard() {
 
   const [stats, setStats] = useState(null);
 
+  const [latest, setLatest] = useState({ courses: [], chapters: [] });
+
   useEffect(() => {
     axios
       .get(API + "/formateur/stats", { headers })
       .then((res) => setStats(res.data));
+    axios
+      .get(API + "/formateur/latest", { headers })
+      .then((res) => setLatest(res.data));
   }, []);
 
   async function handleLogout() {
@@ -67,7 +74,7 @@ function FormateurDashboard() {
       </nav>
 
       <main className="f-main">
-        {/* WELCOME */}
+        {/*======================================================== WELCOME =============================*/}
         <div className="f-welcome">
           <div>
             <h1>Bonjour, Our Dear {user.name} </h1>
@@ -81,7 +88,7 @@ function FormateurDashboard() {
           </button>
         </div>
 
-        {/* STAT CARDS */}
+        {/*============================ STAT CARDS=================== */}
         <div className="f-stats">
           <div className="f-stat-card f-stat-blue">
             <p className="f-stat-label">Cours créés</p>
@@ -105,33 +112,89 @@ function FormateurDashboard() {
           </div>
         </div>
 
-        {/* PLATFORM INFO SECTIONS */}
-        {/* <div className="f-info-row">
-          <div className="f-info-card">
-            <div className="f-info-icon">🎯</div>
-            <h3>Publiez vos cours</h3>
-            <p>
-              Créez un cours, ajoutez des chapitres et des quiz, puis publiez-le
-              pour que vos apprenants puissent s'y inscrire.
-            </p>
+        {/* ============ LATEST ACTIVITY ============ */}
+        <div className="f-latest-wrap">
+          <p className="f-latest-label">Activité récente</p>
+          <p className="f-latest-sub">
+            Les derniers contenus que vous avez ajoutés.
+          </p>
+
+          <div className="f-latest-grid">
+            {/* --- Derniers cours --- */}
+            <div className="f-lcard">
+              <div className="f-lcard-head">
+                <div>
+                  <div className="section_header">
+                    <img src={img2} alt="course" className="cours_img" />
+
+                    <p className="f-lcard-title">Derniers cours</p>
+                  </div>
+
+                  <p className="f-lcard-hint">
+                    {latest.courses.length} cours récents
+                  </p>
+                </div>
+              </div>
+
+              {latest.courses.length === 0 ? (
+                <p className="f-lempty">Aucun cours pour l'instant.</p>
+              ) : (
+                latest.courses.map((course) => (
+                  <div className="f-lrow" key={course.id}>
+                    <div className="f-linitials f-lin-blue">
+                      {course.title.slice(0, 2).toUpperCase()}
+                    </div>
+                    <div className="f-lrow-info">
+                      <p className="f-lrow-name">{course.title}</p>
+                      <p className="f-lrow-meta">
+                        {course.chapters.length ?? 0} chapitres ·{" "}
+                        {course.quizzes.length ?? 0} quiz
+                      </p>
+                    </div>
+                    <span
+                      className={`f-lbadge ${course.is_published ? "f-lb-green" : "f-lb-amber"}`}
+                    >
+                      {course.is_published ? "Publié" : "Brouillon"}
+                    </span>
+                  </div>
+                ))
+              )}
+            </div>
+
+            {/* --- Derniers chapitres --- */}
+            <div className="f-lcard">
+              <div className="f-lcard-head">
+                <div>
+                  <div className="section_header">
+                    <img src={img3} alt="chapitre" className="cours_img" />
+
+                    <p className="f-lcard-title">Derniers chapitres</p>
+                  </div>
+                  <p className="f-lcard-hint">
+                    {latest.chapters.length} chapitres récents
+                  </p>
+                </div>
+              </div>
+
+              {latest.chapters.length === 0 ? (
+                <p className="f-lempty">Aucun chapitre pour l'instant.</p>
+              ) : (
+                latest.chapters.map((chapter, i) => (
+                  <div className="f-lrow" key={chapter.id}>
+                    <div className="f-linitials f-lin-purple">C{i + 1}</div>
+                    <div className="f-lrow-info">
+                      <p className="f-lrow-name">{chapter.title}</p>
+                      <p className="f-lrow-meta">
+                        {chapter.course?.title ?? "—"}
+                      </p>
+                    </div>
+                    <span className="f-lbadge f-lb-blue">Cours lié</span>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
-          <div className="f-info-card">
-            <div className="f-info-icon">📊</div>
-            <h3>Suivez la progression</h3>
-            <p>
-              Consultez combien d'apprenants sont inscrits à chacun de vos cours
-              et suivez leur engagement.
-            </p>
-          </div>
-          <div className="f-info-card">
-            <div className="f-info-icon">🧩</div>
-            <h3>Créez des quiz</h3>
-            <p>
-              Ajoutez des quiz interactifs à vos cours pour évaluer la
-              compréhension de vos apprenants à chaque étape.
-            </p>
-          </div>
-        </div> */}
+        </div>
       </main>
     </div>
   );

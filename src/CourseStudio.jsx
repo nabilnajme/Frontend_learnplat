@@ -8,6 +8,7 @@ import img2 from "./assests/pencil.png";
 import img3 from "./assests/Quiz.png";
 import img4 from "./assests/plus.png";
 import img5 from "./assests/application.png";
+import img6 from "./assests/time.png";
 
 export default function CourseStudio() {
   const { id } = useParams();
@@ -329,9 +330,12 @@ export default function CourseStudio() {
                       </div>
                       <div className="studio-chapter-info">
                         <p className="studio-chapter-title">{quiz.title}</p>
-                        <p className="studio-chapter-content">
-                          ⏱ {quiz.duration_minutes} min
-                        </p>
+                        <div className="duration_section">
+                          <img className="duration_img" src={img6} alt="time" />
+                          <p className="studio-chapter-content">
+                            {quiz.duration_minutes} min
+                          </p>
+                        </div>
                       </div>
                       <div className="studio-chapter-actions">
                         <button

@@ -68,7 +68,7 @@ export default function EditChapter() {
       <div className="panels-container">
         <div className="panel-chapter right-panel-chapter">
           <div className="content-chapter">
-            <h3>Edit Your Course</h3>
+            <h3>Edit Your Chapitre</h3>
           </div>
           <img src={img1} className="image-chapter" alt="" />
         </div>

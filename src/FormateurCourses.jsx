@@ -5,6 +5,7 @@ import { API } from "./App";
 import "./css/formateur.css";
 import img1 from "./assests/exit.png";
 import img2 from "./assests/teach.png";
+import img3 from "./assests/user.png";
 
 function FormateurCourses() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -108,10 +109,16 @@ function FormateurCourses() {
                 <div className="f-course-info">
                   <h3>{course.title}</h3>
                   <p>{course.description || "Pas de description."}</p>
-                  <span className="f-course-students">
-                    👤 {course.enrollments_count} apprenant
-                    {course.enrollments_count !== 1 ? "s" : ""}
-                  </span>
+                  <div
+                    className="img_section
+                  "
+                  >
+                    <img src={img3} alt="user" className="img_user" />
+                    <span className="f-course-students">
+                      {course.enrollments_count} apprenant
+                      {course.enrollments_count !== 1 ? "s" : ""}
+                    </span>
+                  </div>
                 </div>
                 <div className="f-course-actions">
                   {course.is_published ? (
