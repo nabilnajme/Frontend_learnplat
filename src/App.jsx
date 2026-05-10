@@ -14,6 +14,7 @@ import FormCreatecourse from "./FormCreatecourse";
 import CourseStudio from "./CourseStudio";
 import EditChapter from "./EditChapter";
 import EditCourse from "./EditCourse";
+import AdminDashboard from "./AdminDashboard";
 
 import QuizQuestions from "./QuizQuestions";
 
@@ -67,6 +68,8 @@ function App() {
             path="/studio/quiz/:id/questions"
             element={<QuizQuestions />}
           />
+          {/* ===========================Admin=================== */}
+          <Route path="/dashboard/admin" element={<AdminDashboard />} />
         </Routes>
       </Router>
     </>
