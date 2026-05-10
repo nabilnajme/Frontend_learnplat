@@ -3,6 +3,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
 import "./css/createcourse.css";
+import img1 from "./assests/exit.png";
 
 export default function FormCreatecourse() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -61,7 +62,10 @@ export default function FormCreatecourse() {
           </li>
         </ul>
         <div className="sidebar__bottom">
-          <button className="profile-btn" onClick={() => navigate("/profil")}>
+          <button
+            className="profile-btn"
+            onClick={() => navigate("/dashboard/formateur/profile")}
+          >
             <div className="avatar">{user.name.charAt(0).toUpperCase()}</div>
             <div>
               <p className="username">{user.name}</p>
@@ -69,7 +73,7 @@ export default function FormCreatecourse() {
             </div>
           </button>
           <button className="logout-btn" onClick={handleLogout}>
-            ⇥
+            <img className="img-exit" src={img1} alt="exit" />
           </button>
         </div>
       </nav>

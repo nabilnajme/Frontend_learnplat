@@ -3,6 +3,8 @@ import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
 import "./css/formateur.css";
+import img1 from "./assests/exit.png";
+import img2 from "./assests/teach.png";
 
 function FormateurCourses() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -56,7 +58,10 @@ function FormateurCourses() {
         </ul>
 
         <div className="sidebar__bottom">
-          <button className="profile-btn" onClick={() => navigate("/profil")}>
+          <button
+            className="profile-btn"
+            onClick={() => navigate("/dashboard/formateur/profile")}
+          >
             <div className="avatar">{user.name.charAt(0).toUpperCase()}</div>
             <div>
               <p className="username">{user.name}</p>
@@ -64,7 +69,7 @@ function FormateurCourses() {
             </div>
           </button>
           <button className="logout-btn" onClick={handleLogout}>
-            ⇥
+            <img className="img-exit" src={img1} alt="exit" />
           </button>
         </div>
       </nav>
@@ -85,7 +90,7 @@ function FormateurCourses() {
 
         {courses.length === 0 ? (
           <div className="f-empty">
-            <span>📭</span>
+            <img className="img-warning" src={img2} alt="teach" />
             <p>Vous n'avez pas encore créé de cours.</p>
           </div>
         ) : (

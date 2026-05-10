@@ -354,3 +354,24 @@
   font-weight: 700;
   font-size: 16px;
 }
+
+.duration_section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.duration_img {
+  width: 12px;
+}
+.img_container {
+  background: #1a56db;
+  padding: 10px 10px 5px 10px;
+  border-radius: 15px;
+}
+.play_img {
+  width: 20px;
+  border-radius: 15px;
+  color: white;
+}

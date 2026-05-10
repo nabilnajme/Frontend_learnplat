@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
 import "./css/studio.css";
+import img1 from "./assests/Editing.png";
 
 export default function EditCourse() {
   const { id } = useParams();
@@ -74,6 +75,14 @@ export default function EditCourse() {
             Enregistrer
           </button>
         </form>
+      </div>
+      <div className="panels-container">
+        <div className="panel right-panel">
+          <div className="content">
+            <h3>Edit Your Course</h3>
+          </div>
+          <img src={img1} className="image" alt="" />
+        </div>
       </div>
     </div>
   );

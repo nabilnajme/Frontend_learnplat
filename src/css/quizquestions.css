@@ -93,10 +93,33 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 18px;
   padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.qq-form-card::after {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(8, 228, 191, 0.04);
+}
+.qq-form-card::before {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  left: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(13, 236, 199, 0.04);
 }
 
 .qq-form-card h2 {
-  font-family: "Syne", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 15px;
   font-weight: 700;
   color: #fff;
@@ -188,10 +211,33 @@
   border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 18px;
   padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.qq-list-card::after {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(9, 231, 157, 0.04);
+}
+.qq-list-card::before {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  left: -50px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(9, 231, 157, 0.04);
 }
 
 .qq-list-card h2 {
-  font-family: "Syne", sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 15px;
   font-weight: 700;
   color: #fff;
@@ -226,12 +272,16 @@
 }
 
 .qq-question-num {
-  font-family: "Syne", sans-serif;
-  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
   font-weight: 800;
   color: rgba(255, 255, 255, 0.2);
   min-width: 28px;
-  padding-top: 2px;
+  padding-top: 12px;
 }
 
 .qq-question-info {
@@ -284,4 +334,8 @@
 .qq-delete-btn:hover {
   opacity: 1;
   background: rgba(255, 80, 80, 0.15);
+}
+
+.img-delete {
+  width: 20px;
 }

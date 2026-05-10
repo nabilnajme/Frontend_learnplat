@@ -3,6 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
 import "./css/studio.css";
+import img1 from "./assests/delete.png";
+import img2 from "./assests/pencil.png";
+import img3 from "./assests/Quiz.png";
+import img4 from "./assests/plus.png";
+import img5 from "./assests/application.png";
 
 export default function CourseStudio() {
   const { id } = useParams();
@@ -109,13 +114,15 @@ export default function CourseStudio() {
             className="btn-edit"
             onClick={() => navigate(`/studio/${id}/edit`)}
           >
-            ✏️ Modifier le cours
+            <img className="img-edit" src={img2} alt="edit" />
+            <p> Modifier</p>
           </button>
           <button
             className="btn-delete-course"
             onClick={() => handleDeleteCourse(course.id)}
           >
-            🗑 Supprimer
+            <img className="img-delete" src={img1} alt="delete" />
+            <p>Supprimer</p>
           </button>
         </div>
       </div>
@@ -163,7 +170,11 @@ export default function CourseStudio() {
       <div className="studio-body">
         {/* ADD CHAPTER FORM */}
         <div className="studio-card">
-          <h2>➕ Ajouter un chapitre</h2>
+          <div className="form_header">
+            <img className="img_add" src={img4} alt="add" />
+            <h2>Ajouter un chapitre</h2>
+          </div>
+
           <form onSubmit={handleAddChapter}>
             <div className="studio-field">
               <label>Titre du chapitre</label>
@@ -192,7 +203,10 @@ export default function CourseStudio() {
 
         {/* CHAPTERS LIST */}
         <div className="studio-card">
-          <h2>📖 Chapitres ({chapters.length})</h2>
+          <div className="list_header">
+            <img className="chapite_img" src={img5} alt="chapitre" />
+            <h2>Chapitres ({chapters.length})</h2>
+          </div>
 
           {chapters.length === 0 ? (
             <p className="studio-empty">Aucun chapitre pour l'instant.</p>
@@ -201,7 +215,7 @@ export default function CourseStudio() {
               {chapters.map((chapter, index) => (
                 <div className="studio-chapter-row" key={chapter.id}>
                   <div className="studio-chapter-num">
-                    {String(index + 1).padStart(2, "0")}
+                    {index < 10 ? "0" + (index + 1) : index}
                   </div>
                   <div className="studio-chapter-info">
                     <p className="studio-chapter-title">{chapter.title}</p>
@@ -266,7 +280,10 @@ export default function CourseStudio() {
           {/* Body block: form + list side by side */}
           <div className="quiz-body">
             <div className="studio-card">
-              <h2>➕ Ajouter un quiz</h2>
+              <div className="form_header">
+                <img className="img_add" src={img4} alt="add" />
+                <h2>Ajouter un chapitre</h2>
+              </div>
               <form onSubmit={handleAddQuiz}>
                 <div className="studio-field">
                   <label>Titre du quiz</label>
@@ -296,7 +313,11 @@ export default function CourseStudio() {
             </div>
 
             <div className="studio-card">
-              <h2>📝 Quiz ({quizzes.length})</h2>
+              <div className="quiz_header">
+                <img className="quiz_img" src={img3} alt="quiz" />
+                <h2>Quiz ({quizzes.length})</h2>
+              </div>
+
               {quizzes.length === 0 ? (
                 <p className="studio-empty">Aucun quiz pour l'instant.</p>
               ) : (
@@ -304,7 +325,7 @@ export default function CourseStudio() {
                   {quizzes.map((quiz, index) => (
                     <div className="studio-chapter-row" key={quiz.id}>
                       <div className="studio-chapter-num">
-                        {String(index + 1).padStart(2, "0")}
+                        {index < 10 ? "0" + (index + 1) : index}
                       </div>
                       <div className="studio-chapter-info">
                         <p className="studio-chapter-title">{quiz.title}</p>

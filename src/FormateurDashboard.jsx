@@ -3,6 +3,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
 import "./css/formateur.css";
+import img1 from "./assests/exit.png";
 
 function FormateurDashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -49,7 +50,10 @@ function FormateurDashboard() {
         </ul>
 
         <div className="sidebar__bottom">
-          <button className="profile-btn" onClick={() => navigate("/profil")}>
+          <button
+            className="profile-btn"
+            onClick={() => navigate("/dashboard/formateur/profile")}
+          >
             <div className="avatar">{user.name.charAt(0).toUpperCase()}</div>
             <div>
               <p className="username">{user.name}</p>
@@ -57,7 +61,7 @@ function FormateurDashboard() {
             </div>
           </button>
           <button className="logout-btn" onClick={handleLogout}>
-            ⇥
+            <img className="img-exit" src={img1} alt="exit" />
           </button>
         </div>
       </nav>
@@ -102,7 +106,7 @@ function FormateurDashboard() {
         </div>
 
         {/* PLATFORM INFO SECTIONS */}
-        <div className="f-info-row">
+        {/* <div className="f-info-row">
           <div className="f-info-card">
             <div className="f-info-icon">🎯</div>
             <h3>Publiez vos cours</h3>
@@ -127,7 +131,7 @@ function FormateurDashboard() {
               compréhension de vos apprenants à chaque étape.
             </p>
           </div>
-        </div>
+        </div> */}
       </main>
     </div>
   );

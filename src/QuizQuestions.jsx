@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
 import "./css/quizquestions.css";
+import img1 from "./assests/delete.png";
 
 export default function QuizQuestions() {
   const { id } = useParams(); // quiz id
@@ -161,7 +162,7 @@ export default function QuizQuestions() {
             questions.map((q, index) => (
               <div className="qq-question-row" key={q.id}>
                 <div className="qq-question-num">
-                  {String(index + 1).padStart(2, "0")}
+                  {index < 10 ? "0" + (index + 1) : index}
                 </div>
                 <div className="qq-question-info">
                   <p className="qq-question-text">{q.question_text}</p>
@@ -183,7 +184,7 @@ export default function QuizQuestions() {
                   className="qq-delete-btn"
                   onClick={() => handleDeleteQuestion(q.id)}
                 >
-                  🗑
+                  <img className="img-delete" src={img1} alt="delete" />
                 </button>
               </div>
             ))

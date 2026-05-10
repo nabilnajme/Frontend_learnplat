@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
 import "./css/studio.css";
+import img1 from "./assests/edit_chapter.png";
 
 export default function EditChapter() {
   const { id } = useParams(); // chapter id
@@ -62,6 +63,15 @@ export default function EditChapter() {
             Enregistrer
           </button>
         </form>
+      </div>
+
+      <div className="panels-container">
+        <div className="panel-chapter right-panel-chapter">
+          <div className="content-chapter">
+            <h3>Edit Your Course</h3>
+          </div>
+          <img src={img1} className="image-chapter" alt="" />
+        </div>
       </div>
     </div>
   );

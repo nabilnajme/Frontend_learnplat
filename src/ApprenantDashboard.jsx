@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
-
+import img1 from "./assests/exit.png";
 import "./css/apprenant.css";
 
 function ApprenantDashboard() {
@@ -93,7 +93,7 @@ function ApprenantDashboard() {
             </div>
           </button>
           <button className="logout-btn" onClick={handleLogout}>
-            ⇥
+            <img className="img-exit" src={img1} alt="exit" />
           </button>
         </div>
       </nav>

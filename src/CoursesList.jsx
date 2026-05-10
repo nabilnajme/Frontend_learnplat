@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import img1 from "./assests/exit.png";
 import { API } from "./App";
 
 export default function CoursesList() {
@@ -75,7 +75,7 @@ export default function CoursesList() {
             </div>
           </button>
           <button className="logout-btn" onClick={handleLogout}>
-            ⇥
+            <img className="img-exit" src={img1} alt="exit" />
           </button>
         </div>
       </nav>

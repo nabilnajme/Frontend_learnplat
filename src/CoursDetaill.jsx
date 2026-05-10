@@ -4,6 +4,9 @@ import axios from "axios";
 import { API } from "./App";
 import "./css/coursdetaill.css";
 
+import img1 from "./assests/time.png";
+import img2 from "./assests/play.png";
+
 export default function CoursDetaill() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -90,12 +93,17 @@ export default function CoursDetaill() {
             course.quizzes.map((quiz, index) => (
               <div className="quiz-row" key={quiz.id}>
                 <div className="quiz-left">
-                  <div className="quiz-icon">▶</div>
+                  <div className="img_container">
+                    <img src={img2} alt="play" className="play_img" />
+                  </div>
                   <div>
                     <p className="quiz-title">{quiz.title}</p>
-                    <p className="quiz-duration">
-                      ⏱ {quiz.duration_minutes} min
-                    </p>
+                    <div className="duration_section">
+                      <img className="duration_img" src={img1} alt="time" />
+                      <p className="quiz-duration">
+                        {quiz.duration_minutes} min
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <button
