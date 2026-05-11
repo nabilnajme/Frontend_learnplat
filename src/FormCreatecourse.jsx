@@ -123,6 +123,10 @@ export default function FormCreatecourse() {
             </button>
           </form>
         </div>
+
+        <div className="animated_side">
+          <h1>Create Course</h1>
+        </div>
       </main>
     </div>
   );

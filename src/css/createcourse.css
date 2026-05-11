@@ -136,3 +136,35 @@
   max-width: 720px;
   text-align: center;
 }
+
+/* =============== */
+.animated_side {
+  position: absolute;
+  right: 40px; /* distance from form */
+  top: 330px; /* vertical position */
+  margin-left: 50px;
+}
+
+.animated_side h1 {
+  font-size: 68px;
+  font-weight: 900;
+  color: #0d2b1f;
+  transform: rotate(49deg);
+  background-image: url("C:\Users\DeLL\Desktop\frontend\src\assests\animated-one.jpg");
+  background-size: 200%;
+  background-position: left;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: moveBG 5s linear infinite alternate;
+}
+
+@keyframes moveBG {
+  0% {
+    background-position: left;
+  }
+
+  100% {
+    background-position: right;
+  }
+}
