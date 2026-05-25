@@ -15,6 +15,7 @@ export default function EditCourse() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [success, setSuccess] = useState("");
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
     axios.get(API + `/courses/${id}/details`, { headers }).then((res) => {
@@ -26,11 +27,18 @@ export default function EditCourse() {
 
   async function handleSave(e) {
     e.preventDefault();
-    await axios.put(
-      API + `/courses/${id}`,
-      { title, description, category },
-      { headers },
-    );
+
+    const data = new FormData();
+    data.append("title", title);
+    data.append("description", description);
+    data.append("category", category);
+    data.append("_method", "PUT"); // tells Laravel this is a PUT
+    if (image) data.append("image", image);
+
+    await axios.post(API + `/courses/${id}`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
     setSuccess("✓ Cours mis à jour !");
     setTimeout(() => navigate(`/studio/${id}`), 1500);
   }
@@ -46,6 +54,14 @@ export default function EditCourse() {
         {success && <div className="edit-success">{success}</div>}
 
         <form onSubmit={handleSave}>
+          <div className="studio-field">
+            <label>Image du cours</label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setImage(e.target.files[0])}
+            />
+          </div>
           <div className="studio-field">
             <label>Titre</label>
             <input

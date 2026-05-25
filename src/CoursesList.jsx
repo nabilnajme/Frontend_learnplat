@@ -3,6 +3,7 @@ import axios from "axios";
 import { NavLink, useNavigate } from "react-router-dom";
 import img1 from "./assests/exit.png";
 import { API } from "./App";
+import { courseImage } from "./helpers";
 
 export default function CoursesList() {
   const [enrollments, setEnrollments] = useState([]);
@@ -92,6 +93,17 @@ export default function CoursesList() {
           <div className="courses-grid">
             {enrollments.map((enrollment) => (
               <div className="course-card" key={enrollment.id}>
+                {enrollment.image ? (
+                  <img
+                    src={courseImage(enrollment.image)}
+                    alt={enrollment.title}
+                    className="course-card-img"
+                  />
+                ) : (
+                  <div className="course-card-img-placeholder">
+                    {enrollment.title.charAt(0).toUpperCase()}
+                  </div>
+                )}
                 <h2>{enrollment.title}</h2>
                 <p>{enrollment.description}</p>
                 <div className="card-footer">

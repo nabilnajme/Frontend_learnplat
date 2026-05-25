@@ -6,6 +6,8 @@ import { API } from "./App";
 import img1 from "./assests/exit.png";
 import "./css/apprenant.css";
 
+import { courseImage } from "./helpers";
+
 function ApprenantDashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -113,6 +115,17 @@ function ApprenantDashboard() {
           <div className="courses-grid">
             {courses.map((course) => (
               <div className="course-card" key={course.id}>
+                {course.image ? (
+                  <img
+                    src={courseImage(course.image)}
+                    alt={course.title}
+                    className="course-card-img"
+                  />
+                ) : (
+                  <div className="course-card-img-placeholder">
+                    {course.title.charAt(0).toUpperCase()}
+                  </div>
+                )}
                 <h2>{course.title}</h2>
                 <p>{course.description}</p>
                 <div className="card-footer">

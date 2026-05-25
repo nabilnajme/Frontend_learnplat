@@ -15,20 +15,28 @@ export default function FormCreatecourse() {
     description: "",
     category: "",
   });
+  const [image, setImage] = useState(null);
+
   const [success, setSuccess] = useState("");
 
   const handleCreate = async (e) => {
     e.preventDefault();
+
+    // FormData because we have a file
+    const data = new FormData();
+    data.append("title", form.title);
+    data.append("description", form.description);
+    data.append("category", form.category);
+    if (image) data.append("image", image);
+
     try {
-      await axios.post(API + "/courses", form, { headers });
+      await axios.post(API + "/courses", data, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setSuccess("✓ Cours créé avec succès !");
       setForm({ title: "", description: "", category: "" });
-
-      setTimeout(() => {
-        (setSuccess(""), 3000);
-
-        navigate("/dashboard/formateur/courses");
-      });
+      setImage(null);
+      setTimeout(() => navigate("/dashboard/formateur/courses"), 2000);
     } catch (_) {
       alert("Erreur lors de la création.");
     }
@@ -88,6 +96,14 @@ export default function FormCreatecourse() {
         <div className="f-form-card">
           <h2>Nouveau cours</h2>
           <form onSubmit={handleCreate}>
+            <div className="f-field">
+              <label>Image du cours</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </div>
             <div className="f-field">
               <label>Titre</label>
               <input
