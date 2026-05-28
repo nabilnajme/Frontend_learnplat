@@ -15,26 +15,39 @@ export default function EditChapter() {
   const [content, setContent] = useState("");
   const [courseId, setCourseId] = useState(null);
   const [success, setSuccess] = useState("");
+  const [file, setFile] = useState(null);
+  const [oldFile, setOldFile] = useState("");
 
   useEffect(() => {
     axios.get(API + `/chapters/${id}`, { headers }).then((res) => {
       setTitle(res.data.title);
       setContent(res.data.content || "");
       setCourseId(res.data.course_id);
+      setOldFile(res.data.file_path || "");
     });
   }, []);
 
   async function handleSave(e) {
     e.preventDefault();
-    await axios.put(API + `/chapters/${id}`, { title, content }, { headers });
-    setSuccess("✓ Chapitre mis à jour !");
+
+    const data = new FormData();
+    data.append("title", title);
+    data.append("content", content);
+    data.append("_method", "PUT");
+    if (file) data.append("file", file);
+
+    await axios.post(API + `/chapters/${id}`, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    setSuccess("Chapitre mis a jour !");
     setTimeout(() => navigate(`/studio/${courseId}`), 1500);
   }
 
   return (
     <div className="edit-page">
       <button className="studio-back" onClick={() => navigate(-1)}>
-        ← Retour au studio
+        Retour au studio
       </button>
 
       <div className="edit-card">
@@ -58,6 +71,15 @@ export default function EditChapter() {
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
+          </div>
+          <div className="studio-field">
+            <label>PDF ou video</label>
+            <input
+              type="file"
+              accept=".pdf,video/*"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            {oldFile && <p className="file-help">Un fichier existe deja.</p>}
           </div>
           <button type="submit" className="btn-add-chapter">
             Enregistrer

@@ -14,6 +14,12 @@ export default function FormateurProfile() {
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [toast, setToast] = useState(null);
+
+  function showToast(message, type = "info") {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  }
 
   async function saveInfo(e) {
     e.preventDefault();
@@ -24,9 +30,9 @@ export default function FormateurProfile() {
         { headers },
       );
       localStorage.setItem("user", JSON.stringify(res.data));
-      alert("✓ Profil mis à jour avec succès !");
+      showToast("Profil mis a jour avec succes !", "success");
     } catch (_) {
-      alert("Erreur lors de la mise à jour.");
+      showToast("Erreur lors de la mise a jour.", "error");
     }
   }
 
@@ -38,16 +44,24 @@ export default function FormateurProfile() {
         { current_password: currentPassword, new_password: newPassword },
         { headers },
       );
-      alert("✓ Mot de passe mis à jour !");
+      showToast("Mot de passe mis a jour !", "success");
       setCurrentPassword("");
       setNewPassword("");
     } catch (err) {
-      alert(err.response?.data?.message || "Erreur.");
+      showToast(err.response?.data?.message || "Erreur.", "error");
     }
   }
   return (
     <>
       <div className="fp-page">
+        {toast && (
+          <div className={"toast toast-" + toast.type}>
+            <div className="toast-icon">
+              {toast.type === "success" ? "✓" : toast.type === "error" ? "!" : "i"}
+            </div>
+            <p>{toast.message}</p>
+          </div>
+        )}
         <button className="fp-back-btn" onClick={() => navigate(-1)}>
           ← Retour
         </button>

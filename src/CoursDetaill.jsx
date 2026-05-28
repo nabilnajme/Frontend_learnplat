@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
+import { chapterFile } from "./helpers";
 import "./css/coursdetaill.css";
 
 import img1 from "./assests/time.png";
@@ -22,6 +23,17 @@ export default function CoursDetaill() {
   }, [id]);
 
   if (!course) return <div className="detail-loading">Chargement...</div>;
+
+  function contactFormateur() {
+    if (!course.formateur?.phone) return;
+
+    const cleanPhone = course.formateur.phone.replace(/\D/g, "");
+    const message = `Bonjour, je suis un etudiant dans votre cours: ${course.title}`;
+    window.open(
+      `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`,
+      "_blank",
+    );
+  }
 
   return (
     <div className="detail-page">
@@ -44,6 +56,11 @@ export default function CoursDetaill() {
         <div className="hero-top">
           <span className="hero-badge">Cours</span>
           <span className="hero-author">Par {course.formateur?.name}</span>
+          {course.formateur?.phone && (
+            <button className="whatsapp-btn" onClick={contactFormateur}>
+              Contacter
+            </button>
+          )}
         </div>
         <h1>{course.title}</h1>
         <p>{course.description || "Pas de description."}</p>
@@ -79,6 +96,21 @@ export default function CoursDetaill() {
                 </label>
                 <div className="accordion-body">
                   <p>{chapter.content}</p>
+                  {chapter.file_path && chapter.file_type === "pdf" && (
+                    <a
+                      className="chapter-file-link"
+                      href={chapterFile(chapter.file_path)}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Ouvrir le PDF
+                    </a>
+                  )}
+                  {chapter.file_path && chapter.file_type !== "pdf" && (
+                    <video className="chapter-video" controls>
+                      <source src={chapterFile(chapter.file_path)} />
+                    </video>
+                  )}
                 </div>
               </div>
             ))

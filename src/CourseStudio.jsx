@@ -21,12 +21,19 @@ export default function CourseStudio() {
 
   const [chapterTitle, setChapterTitle] = useState("");
   const [chapterContent, setChapterContent] = useState("");
+  const [chapterFile, setChapterFile] = useState(null);
 
   const [quizTitle, setQuizTitle] = useState("");
   const [quizDuration, setQuizDuration] = useState("");
 
   const [quizzes, setQuizzes] = useState([]);
   const [analytics, setAnalytics] = useState(null);
+  const [toast, setToast] = useState(null);
+
+  function showToast(message, type = "info") {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  }
 
   // load course + chapters
   useEffect(() => {
@@ -49,14 +56,22 @@ export default function CourseStudio() {
   // add chapter
   const handleAddChapter = async (e) => {
     e.preventDefault();
+
+    const data = new FormData();
+    data.append("title", chapterTitle);
+    data.append("content", chapterContent);
+    if (chapterFile) data.append("file", chapterFile);
+
     const res = await axios.post(
       API + `/courses/${id}/chapters`,
-      { title: chapterTitle, content: chapterContent },
-      { headers },
+      data,
+      { headers: { Authorization: `Bearer ${token}` } },
     );
     setChapters([...chapters, res.data]);
     setChapterTitle("");
     setChapterContent("");
+    setChapterFile(null);
+    e.target.reset();
   };
 
   // delete chapter
@@ -74,9 +89,9 @@ export default function CourseStudio() {
     } catch (err) {
       console.error(err.response);
       if (err.response?.status === 400) {
-        alert(err.response.data.error);
+        showToast(err.response.data.error, "error");
       } else {
-        alert("Erreur lors de la suppression.");
+        showToast("Erreur lors de la suppression.", "error");
       }
     }
   };
@@ -102,6 +117,14 @@ export default function CourseStudio() {
 
   return (
     <div className="studio-page">
+      {toast && (
+        <div className={"toast toast-" + toast.type}>
+          <div className="toast-icon">
+            {toast.type === "success" ? "✓" : toast.type === "error" ? "!" : "i"}
+          </div>
+          <p>{toast.message}</p>
+        </div>
+      )}
       {/* TOP NAV */}
       <div className="studio-topnav">
         <button
@@ -196,6 +219,14 @@ export default function CourseStudio() {
                 onChange={(e) => setChapterContent(e.target.value)}
               />
             </div>
+            <div className="studio-field">
+              <label>PDF ou video</label>
+              <input
+                type="file"
+                accept=".pdf,video/*"
+                onChange={(e) => setChapterFile(e.target.files[0])}
+              />
+            </div>
             <button type="submit" className="btn-add-chapter">
               Ajouter le chapitre
             </button>
@@ -224,6 +255,11 @@ export default function CourseStudio() {
                       {chapter.content || "Pas de contenu."}
                       ...
                     </p>
+                    {chapter.file_path && (
+                      <p className="studio-chapter-file">
+                        Fichier: {chapter.file_type}
+                      </p>
+                    )}
                   </div>
                   <div className="studio-chapter-actions">
                     <button

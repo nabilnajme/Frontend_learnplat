@@ -3,7 +3,6 @@ import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
 import "./css/createcourse.css";
-import img1 from "./assests/exit.png";
 
 export default function FormCreatecourse() {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -18,6 +17,12 @@ export default function FormCreatecourse() {
   const [image, setImage] = useState(null);
 
   const [success, setSuccess] = useState("");
+  const [toast, setToast] = useState(null);
+
+  function showToast(message, type = "info") {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  }
 
   const handleCreate = async (e) => {
     e.preventDefault();
@@ -38,7 +43,7 @@ export default function FormCreatecourse() {
       setImage(null);
       setTimeout(() => navigate("/dashboard/formateur/courses"), 2000);
     } catch (_) {
-      alert("Erreur lors de la création.");
+      showToast("Erreur lors de la creation.", "error");
     }
   };
 
@@ -50,7 +55,15 @@ export default function FormCreatecourse() {
   }
   return (
     <div className="layout">
-      <nav className="sidebar">
+      {toast && (
+        <div className={"toast toast-" + toast.type}>
+          <div className="toast-icon">
+            {toast.type === "success" ? "✓" : toast.type === "error" ? "!" : "i"}
+          </div>
+          <p>{toast.message}</p>
+        </div>
+      )}
+      <nav className="sidebar formateur-sidebar">
         <div className="sidebar__brand">EduLearn</div>
         <ul className="sidebar__links">
           <li>
@@ -80,8 +93,13 @@ export default function FormCreatecourse() {
               <p className="role">formateur</p>
             </div>
           </button>
-          <button className="logout-btn" onClick={handleLogout}>
-            <img className="img-exit" src={img1} alt="exit" />
+          <button className="logout-btn-modern" onClick={handleLogout}>
+            <div className="logout-sign">
+              <svg viewBox="0 0 512 512">
+                <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+              </svg>
+            </div>
+            <div className="logout-text">Exit</div>
           </button>
         </div>
       </nav>

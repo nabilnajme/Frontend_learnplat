@@ -8,6 +8,12 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [toast, setToast] = useState(null);
+
+  function showToast(message, type = "info") {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,12 +30,20 @@ function Login() {
       else if (role === "formateur") navigate("/dashboard/formateur");
       else navigate("/dashboard/admin");
     } catch (error) {
-      alert("Email or password incorrect");
+      showToast("Email or password incorrect", "error");
     }
   };
 
   return (
     <div className="login-container">
+      {toast && (
+        <div className={"toast toast-" + toast.type}>
+          <div className="toast-icon">
+            {toast.type === "success" ? "✓" : toast.type === "error" ? "!" : "i"}
+          </div>
+          <p>{toast.message}</p>
+        </div>
+      )}
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
         <input

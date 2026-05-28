@@ -333,3 +333,54 @@
   font-family: "DM Sans", sans-serif;
   color: #888;
 }
+
+@media (max-width: 768px) {
+  .quiz-page {
+    padding: 24px 16px;
+    align-items: stretch;
+  }
+
+  .quiz-card-header,
+  .question-box,
+  .quiz-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .quiz-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .progress-bar {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .quiz-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-prev,
+  .btn-next {
+    width: 100%;
+  }
+
+  .quiz-result-card,
+  .quiz-result-card.wide {
+    padding: 28px 20px;
+    margin-top: 20px;
+  }
+
+  .result-stats {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .quit-btn {
+    width: 100%;
+    margin: 0 0 18px;
+  }
+}

@@ -3,7 +3,6 @@ import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
 import "./css/formateur.css";
-import img1 from "./assests/exit.png";
 import img2 from "./assests/course.png";
 import img3 from "./assests/chapter.png";
 
@@ -16,6 +15,10 @@ function FormateurDashboard() {
   const [stats, setStats] = useState(null);
 
   const [latest, setLatest] = useState({ courses: [], chapters: [] });
+  const [showPhonePopup, setShowPhonePopup] = useState(
+    user.role === "formateur" && !user.phone,
+  );
+  const [phone, setPhone] = useState("");
 
   useEffect(() => {
     axios
@@ -33,9 +36,38 @@ function FormateurDashboard() {
     navigate("/login");
   }
 
+  async function handleSavePhone(e) {
+    e.preventDefault();
+
+    const res = await axios.put(
+      API + "/formateur/phone",
+      { phone },
+      { headers },
+    );
+
+    localStorage.setItem("user", JSON.stringify(res.data));
+    setShowPhonePopup(false);
+  }
+
   return (
     <div className="layout">
-      <nav className="sidebar">
+      {showPhonePopup && (
+        <div className="phone-popup-bg">
+          <form className="phone-popup" onSubmit={handleSavePhone}>
+            <h2>Ajouter votre numero</h2>
+            <p>Les apprenants pourront vous contacter sur WhatsApp.</p>
+            <input
+              type="text"
+              placeholder="Ex: 212612345678"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+            />
+            <button type="submit">Enregistrer</button>
+          </form>
+        </div>
+      )}
+      <nav className="sidebar formateur-sidebar">
         <div className="sidebar__brand">EduLearn</div>
 
         <ul className="sidebar__links">
@@ -67,8 +99,13 @@ function FormateurDashboard() {
               <p className="role">formateur</p>
             </div>
           </button>
-          <button className="logout-btn" onClick={handleLogout}>
-            <img className="img-exit" src={img1} alt="exit" />
+          <button className="logout-btn-modern" onClick={handleLogout}>
+            <div className="logout-sign">
+              <svg viewBox="0 0 512 512">
+                <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+              </svg>
+            </div>
+            <div className="logout-text">Exit</div>
           </button>
         </div>
       </nav>
@@ -85,6 +122,12 @@ function FormateurDashboard() {
             onClick={() => navigate("/dashboard/formateur/create")}
           >
             Create course
+            <span className="star-1">*</span>
+            <span className="star-2">*</span>
+            <span className="star-3">*</span>
+            <span className="star-4">*</span>
+            <span className="star-5">*</span>
+            <span className="star-6">*</span>
           </button>
         </div>
 

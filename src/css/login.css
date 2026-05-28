@@ -46,3 +46,16 @@
 .login-form button:hover {
   background: #357bd8;
 }
+
+@media (max-width: 480px) {
+  .login-container {
+    height: auto;
+    min-height: 100vh;
+    padding: 16px;
+  }
+
+  .login-form {
+    width: 100%;
+    padding: 28px 22px;
+  }
+}

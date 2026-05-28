@@ -350,3 +350,45 @@
 .duration_img {
   width: 14px;
 }
+
+@media (max-width: 900px) {
+  .qq-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .qq-page {
+    padding: 24px 16px;
+  }
+
+  .qq-header {
+    margin-bottom: 28px;
+  }
+
+  .qq-header h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .qq-header p {
+    text-align: center;
+  }
+
+  .qq-form-card,
+  .qq-list-card {
+    padding: 22px;
+  }
+
+  .qq-options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .qq-question-row {
+    flex-wrap: wrap;
+  }
+
+  .qq-delete-btn {
+    margin-left: auto;
+  }
+}

@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
-import img1 from "./assests/exit.png";
 import "./css/apprenant.css";
 
 import { courseImage } from "./helpers";
@@ -13,11 +12,16 @@ function ApprenantDashboard() {
 
   const navigate = useNavigate();
 
-  const [test, setTest] = useState("");
-
   const [courses, setCourses] = useState([]);
+  const [search, setSearch] = useState("");
+  const [toast, setToast] = useState(null);
 
   const token = localStorage.getItem("token");
+
+  function showToast(message, type = "info") {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  }
 
   const handleLogout = async (e) => {
     const token = localStorage.getItem("token");
@@ -49,15 +53,27 @@ function ApprenantDashboard() {
         {},
         { headers },
       );
-      alert("Inscription réussie !");
+      showToast("Inscription reussie !", "success");
     } catch (_) {
-      alert("vous avez deja inscris a cette cours");
+      showToast("Vous etes deja inscrit a ce cours.", "error");
     }
   };
 
+  const filteredCourses = courses.filter((course) =>
+    course.title.toLowerCase().includes(search.toLowerCase()),
+  );
+
   return (
     <div className="layout">
-      <nav className="sidebar">
+      {toast && (
+        <div className={"toast toast-" + toast.type}>
+          <div className="toast-icon">
+            {toast.type === "success" ? "✓" : toast.type === "error" ? "!" : "i"}
+          </div>
+          <p>{toast.message}</p>
+        </div>
+      )}
+      <nav className="sidebar apprenant-sidebar">
         <div className="sidebar__brand">EduLearn</div>
 
         <ul className="sidebar__links">
@@ -94,8 +110,13 @@ function ApprenantDashboard() {
               <p className="role">apprenant</p>
             </div>
           </button>
-          <button className="logout-btn" onClick={handleLogout}>
-            <img className="img-exit" src={img1} alt="exit" />
+          <button className="logout-btn-modern" onClick={handleLogout}>
+            <div className="logout-sign">
+              <svg viewBox="0 0 512 512">
+                <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
+              </svg>
+            </div>
+            <div className="logout-text">Exit</div>
           </button>
         </div>
       </nav>
@@ -109,11 +130,23 @@ function ApprenantDashboard() {
           Découvrez tous les cours publiés par nos formateurs
         </p>
 
+        <div className="search-box">
+          <span className="search-icon">⌕</span>
+          <input
+            type="text"
+            placeholder="Search course by name..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
         {courses.length === 0 ? (
           <p className="empty">Aucun cours disponible pour l'instant.</p>
+        ) : filteredCourses.length === 0 ? (
+          <p className="empty">Aucun cours trouve avec ce nom.</p>
         ) : (
           <div className="courses-grid">
-            {courses.map((course) => (
+            {filteredCourses.map((course) => (
               <div className="course-card" key={course.id}>
                 {course.image ? (
                   <img

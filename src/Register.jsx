@@ -12,6 +12,12 @@ function Register() {
     password: "",
     role: "apprenant",
   });
+  const [toast, setToast] = useState(null);
+
+  function showToast(message, type = "info") {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  }
 
   function handleChange(e) {
     setFormData({
@@ -28,15 +34,23 @@ function Register() {
 
       localStorage.setItem("token", res.data.token);
 
-      alert("Registration successful!");
+      showToast("Registration successful!", "success");
       navigate("/login");
     } catch (error) {
-      alert("Registration failed!");
+      showToast("Registration failed!", "error");
     }
   };
 
   return (
     <div className="register-container">
+      {toast && (
+        <div className={"toast toast-" + toast.type}>
+          <div className="toast-icon">
+            {toast.type === "success" ? "✓" : toast.type === "error" ? "!" : "i"}
+          </div>
+          <p>{toast.message}</p>
+        </div>
+      )}
       <form className="register-form" onSubmit={handleSubmit}>
         <h2>Create Account</h2>
 

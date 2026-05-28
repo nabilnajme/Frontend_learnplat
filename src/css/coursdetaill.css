@@ -110,6 +110,26 @@
   gap: 24px;
 }
 
+.whatsapp-btn {
+  padding: 5px 11px;
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+}
+
+.whatsapp-btn:hover {
+  background: #16a34a;
+  transform: translateY(-1px);
+}
+
 .stat {
   display: flex;
   align-items: center;
@@ -293,8 +313,25 @@
 }
 
 .accordion input:checked ~ .accordion-body {
-  max-height: 300px;
+  max-height: 700px;
   padding: 14px 18px;
+}
+
+.chapter-file-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: #1a56db;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chapter-video {
+  display: block;
+  width: 100%;
+  max-height: 320px;
+  margin-top: 12px;
+  border-radius: 12px;
+  background: #000;
 }
 
 .section-card.narrow-card {
@@ -374,4 +411,60 @@
   width: 20px;
   border-radius: 15px;
   color: white;
+}
+
+@media (max-width: 900px) {
+  .detail-body {
+    flex-direction: column;
+  }
+
+  .section-card.narrow-card,
+  .section-card.quiz-one {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .detail-page {
+    padding: 24px 16px;
+  }
+
+  .nav_details {
+    margin-right: 0;
+    margin-bottom: 28px;
+  }
+
+  .hero-card {
+    max-width: none;
+    margin-top: 24px;
+    padding: 28px 22px;
+    border-radius: 16px;
+  }
+
+  .hero-card h1 {
+    font-size: 24px;
+  }
+
+  .hero-stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .section-card {
+    padding: 22px 18px;
+  }
+
+  .quiz-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .quiz-btn {
+    width: 100%;
+  }
+
+  .profile_button {
+    margin-right: 0;
+  }
 }
