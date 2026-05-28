@@ -147,7 +147,11 @@ function ApprenantDashboard() {
         ) : (
           <div className="courses-grid">
             {filteredCourses.map((course) => (
-              <div className="course-card" key={course.id}>
+              <div
+                className="course-card"
+                key={course.id}
+                onClick={() => navigate(`/courses/${course.id}/preview`)}
+              >
                 {course.image ? (
                   <img
                     src={courseImage(course.image)}
@@ -166,7 +170,10 @@ function ApprenantDashboard() {
                   <button
                     type="button"
                     className="enroll-btn"
-                    onClick={() => handleEnroll(course.id)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleEnroll(course.id);
+                    }}
                   >
                     Enroll Now
                   </button>

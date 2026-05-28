@@ -9,6 +9,7 @@ import CoursesList from "./CoursesList";
 import FormateurCourses from "./FormateurCourses";
 import Profile from "./Profile";
 import CoursDetaill from "./CoursDetaill";
+import CoursePreview from "./CoursePreview";
 import Quiz from "./Quiz";
 import Results from "./Results";
 import FormCreatecourse from "./FormCreatecourse";
@@ -38,6 +39,7 @@ function App() {
             element={<CoursesList />}
           />
           <Route path="dashboard/apprenant/profile" element={<Profile />} />
+          <Route path="/courses/:id/preview" element={<CoursePreview />} />
           <Route path="/courses/:id/details" element={<CoursDetaill />} />
           <Route path="/quiz/:id" element={<Quiz />} />
           <Route path="/my-results" element={<Results />} />
