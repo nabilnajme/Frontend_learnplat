@@ -49,7 +49,11 @@ function Profil() {
       setCurrentPassword("");
       setNewPassword("");
     } catch (err) {
-      showToast(err.response?.data?.message || "Erreur.", "error");
+      if (err.response && err.response.data) {
+        showToast(err.response.data.message, "error");
+      } else {
+        showToast("Erreur.", "error");
+      }
     }
   }
 

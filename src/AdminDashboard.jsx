@@ -20,10 +20,20 @@ export default function AdminDashboard() {
   const token = localStorage.getItem("token");
   const headers = { Authorization: `Bearer ${token}` };
 
-  const [stats, setStats] = useState(null);
+  const [stats, setStats] = useState({
+    total_users: "—",
+    total_apprenants: "—",
+    total_formateurs: "—",
+    total_courses: "—",
+    published_courses: "—",
+    total_enrollments: "—",
+    total_quizzes: "—",
+    total_comments: "—",
+  });
   const [users, setUsers] = useState([]);
   const [courses, setCourses] = useState([]);
-  const [page, setPage] = useState("accueil"); // accueil | users | courses
+  const [comments, setComments] = useState([]);
+  const [page, setPage] = useState("accueil"); // accueil | users | courses | comments
 
   useEffect(() => {
     axios.get(API + "/admin/stats", { headers }).then((r) => setStats(r.data));
@@ -31,6 +41,9 @@ export default function AdminDashboard() {
     axios
       .get(API + "/admin/courses", { headers })
       .then((r) => setCourses(r.data));
+    axios
+      .get(API + "/admin/comments", { headers })
+      .then((r) => setComments(r.data));
   }, []);
 
   async function handleLogout() {
@@ -52,13 +65,19 @@ export default function AdminDashboard() {
     setCourses(courses.filter((c) => c.id !== id));
   }
 
+  async function handleDeleteComment(id) {
+    if (!window.confirm("Supprimer ce commentaire ?")) return;
+    await axios.delete(API + `/admin/comments/${id}`, { headers });
+    setComments(comments.filter((c) => c.id !== id && c.parent_id !== id));
+  }
+
   return (
     <div className="ad-layout">
       {/* ---- SIDEBAR ---- */}
       <nav className="ad-sidebar">
         <div className="ad-brand">
-          <div className="ad-brand-icon">E</div>
-          <span>EduLearn</span>
+          <div className="ad-brand-icon">C</div>
+          <span>oursera</span>
         </div>
 
         <ul className="ad-links">
@@ -86,6 +105,15 @@ export default function AdminDashboard() {
               onClick={() => setPage("courses")}
             >
               <img src={img3} className="ad-link-icon" alt="courses" /> Cours
+            </button>
+          </li>
+          <li>
+            <button
+              className={"ad-link" + (page === "comments" ? " active" : "")}
+              onClick={() => setPage("comments")}
+            >
+              <img src={img8} className="ad-link-icon" alt="comments" />
+              Commentaires
             </button>
           </li>
         </ul>
@@ -139,7 +167,7 @@ export default function AdminDashboard() {
               >
                 <img src={img4} className="ad-link-icon" alt="user_main" />
 
-                <p className="ad-stat-num">{stats?.total_users ?? "—"}</p>
+                <p className="ad-stat-num">{stats.total_users}</p>
                 <p className="ad-stat-label">Utilisateurs</p>
               </div>
               <div
@@ -149,7 +177,7 @@ export default function AdminDashboard() {
                 }}
               >
                 <img src={img5} className="ad-link-icon" alt="students" />
-                <p className="ad-stat-num">{stats?.total_apprenants ?? "—"}</p>
+                <p className="ad-stat-num">{stats.total_apprenants}</p>
                 <p className="ad-stat-label">Apprenants</p>
               </div>
               <div
@@ -159,7 +187,7 @@ export default function AdminDashboard() {
                 }}
               >
                 <img src={img6} className="ad-link-icon" alt="teacher" />{" "}
-                <p className="ad-stat-num">{stats?.total_formateurs ?? "—"}</p>
+                <p className="ad-stat-num">{stats.total_formateurs}</p>
                 <p className="ad-stat-label">Formateurs</p>
               </div>
               <div
@@ -169,7 +197,7 @@ export default function AdminDashboard() {
                 }}
               >
                 <img src={img3} className="ad-link-icon" alt="courses" />{" "}
-                <p className="ad-stat-num">{stats?.total_courses ?? "—"}</p>
+                <p className="ad-stat-num">{stats.total_courses}</p>
                 <p className="ad-stat-label">Cours totaux</p>
               </div>
               <div
@@ -179,7 +207,7 @@ export default function AdminDashboard() {
                 }}
               >
                 <img src={img7} className="ad-link-icon" alt="valide" />{" "}
-                <p className="ad-stat-num">{stats?.published_courses ?? "—"}</p>
+                <p className="ad-stat-num">{stats.published_courses}</p>
                 <p className="ad-stat-label">Cours publiés</p>
               </div>
               <div
@@ -189,7 +217,7 @@ export default function AdminDashboard() {
                 }}
               >
                 <img src={img8} className="ad-link-icon" alt="list" />{" "}
-                <p className="ad-stat-num">{stats?.total_enrollments ?? "—"}</p>
+                <p className="ad-stat-num">{stats.total_enrollments}</p>
                 <p className="ad-stat-label">Inscriptions</p>
               </div>
               <div
@@ -199,18 +227,19 @@ export default function AdminDashboard() {
                 }}
               >
                 <img src={img9} className="ad-link-icon" alt="puzzle" />
-                <p className="ad-stat-num">{stats?.total_quizzes ?? "—"}</p>
+                <p className="ad-stat-num">{stats.total_quizzes}</p>
                 <p className="ad-stat-label">Quiz créés</p>
               </div>
+
               <div
                 className="ad-stat-card"
                 style={{
-                  background: "linear-gradient(135deg, #06b6d4, #22d3ee)",
+                  background: "linear-gradient(135deg, #ef4444, #fb7185)",
                 }}
               >
-                <img src={img10} className="ad-link-icon" alt="cup" />{" "}
-                <p className="ad-stat-num">{stats?.total_results ?? "—"}</p>
-                <p className="ad-stat-label">Quiz complétés</p>
+                <img src={img8} className="ad-link-icon" alt="comments" />{" "}
+                <p className="ad-stat-num">{stats.total_comments}</p>
+                <p className="ad-stat-label">Commentaires</p>
               </div>
             </div>
 
@@ -247,7 +276,8 @@ export default function AdminDashboard() {
                     <div>
                       <p className="ad-overview-name">{c.title}</p>
                       <p className="ad-overview-sub">
-                        Par {c.formateur?.name} · {c.enrollments_count} inscrits
+                        Par {c.formateur ? c.formateur.name : "—"} ·{" "}
+                        {c.enrollments_count} inscrits
                       </p>
                     </div>
                     <span
@@ -356,7 +386,9 @@ export default function AdminDashboard() {
                           {c.title}
                         </div>
                       </td>
-                      <td className="ad-table-sub">{c.formateur?.name}</td>
+                      <td className="ad-table-sub">
+                        {c.formateur ? c.formateur.name : "—"}
+                      </td>
                       <td className="ad-table-sub">{c.enrollments_count}</td>
                       <td>
                         <span
@@ -380,6 +412,78 @@ export default function AdminDashboard() {
                   ))}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {/* ======= COMMENTS PAGE ======= */}
+        {page === "comments" && (
+          <div>
+            <div className="ad-page-header">
+              <h1>Commentaires</h1>
+              <p>{comments.length} commentaires sur la plateforme</p>
+            </div>
+
+            <div className="ad-comments-list">
+              {comments.length === 0 ? (
+                <div className="ad-empty-box">
+                  Aucun commentaire pour le moment.
+                </div>
+              ) : (
+                comments.map((comment) => (
+                  <div className="ad-comment-card" key={comment.id}>
+                    <div className="ad-comment-top">
+                      <div className="ad-table-user">
+                        <div className="ad-mini-avatar">
+                          {comment.user
+                            ? comment.user.name.charAt(0).toUpperCase()
+                            : "?"}
+                        </div>
+                        <div>
+                          <p className="ad-comment-user">
+                            {comment.user
+                              ? comment.user.name
+                              : "Utilisateur supprimé"}
+                          </p>
+                          <p className="ad-overview-sub">
+                            {comment.course
+                              ? comment.course.title
+                              : "Cours supprimé"}
+                          </p>
+                        </div>
+                      </div>
+                      <span
+                        className={
+                          "ad-role-badge ad-role-" +
+                          (comment.user ? comment.user.role : "apprenant")
+                        }
+                      >
+                        {comment.parent_id
+                          ? "réponse"
+                          : comment.user
+                            ? comment.user.role
+                            : "apprenant"}
+                      </span>
+                    </div>
+
+                    <p className="ad-comment-text">{comment.comment}</p>
+
+                    <div className="ad-comment-bottom">
+                      <span>
+                        {new Date(comment.created_at).toLocaleDateString(
+                          "fr-FR",
+                        )}
+                      </span>
+                      <button
+                        className="ad-delete-btn"
+                        onClick={() => handleDeleteComment(comment.id)}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         )}

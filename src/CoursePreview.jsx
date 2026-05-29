@@ -10,6 +10,7 @@ export default function CoursePreview() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const headers = { Authorization: `Bearer ${token}` };
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [course, setCourse] = useState(null);
   const [toast, setToast] = useState(null);
@@ -42,7 +43,7 @@ export default function CoursePreview() {
   }
 
   function contactFormateur() {
-    if (!course.formateur?.phone) return;
+    if (!course.formateur || !course.formateur.phone) return;
 
     const cleanPhone = course.formateur.phone.replace(/\D/g, "");
     const message = `Bonjour, je veux plus d'informations sur votre cours: ${course.title}`;
@@ -75,8 +76,25 @@ export default function CoursePreview() {
       setCommentError("");
     } catch (err) {
       setCommentError(
-        err.response?.data?.message || "Inscris-toi pour commenter ce cours.",
+        err.response && err.response.data
+          ? err.response.data.message
+          : "Inscris-toi pour commenter ce cours.",
       );
+    }
+  }
+
+  async function deleteComment(commentId) {
+    try {
+      await axios.delete(API + `/comments/${commentId}`, { headers });
+
+      setCourse({
+        ...course,
+        comments: (course.comments || []).filter(
+          (item) => item.id !== commentId && item.parent_id !== commentId,
+        ),
+      });
+    } catch (_) {
+      setCommentError("Erreur lors de la suppression du commentaire.");
     }
   }
 
@@ -124,14 +142,14 @@ export default function CoursePreview() {
 
           <div className="preview-teacher">
             <span>Formateur</span>
-            <strong>{course.formateur?.name}</strong>
+            <strong>{course.formateur ? course.formateur.name : "—"}</strong>
           </div>
 
           <div className="preview-actions">
             <button className="preview-enroll" onClick={handleEnroll}>
               Enroll now
             </button>
-            {course.formateur?.phone && (
+            {course.formateur && course.formateur.phone && (
               <button className="preview-contact" onClick={contactFormateur}>
                 WhatsApp
               </button>
@@ -201,18 +219,32 @@ export default function CoursePreview() {
             mainComments.map((item) => (
               <div className="preview-comment" key={item.id}>
                 <div className="preview-comment-avatar">
-                  {item.user?.name?.charAt(0).toUpperCase() || "A"}
+                  {item.user ? item.user.name.charAt(0).toUpperCase() : "A"}
                 </div>
                 <div className="preview-comment-body">
                   <div className="preview-comment-top">
-                    <strong>{item.user?.name || "Apprenant"}</strong>
-                    <span>{new Date(item.created_at).toLocaleDateString()}</span>
+                    <strong>{item.user ? item.user.name : "Apprenant"}</strong>
+                    <div className="preview-comment-actions">
+                      <span>{new Date(item.created_at).toLocaleDateString()}</span>
+                      {item.user_id === user.id && (
+                        <button onClick={() => deleteComment(item.id)}>
+                          Supprimer
+                        </button>
+                      )}
+                    </div>
                   </div>
                   <p>{item.comment}</p>
 
                   {getReplies(item.id).map((reply) => (
                     <div className="preview-reply" key={reply.id}>
-                      <small>Reponse formateur</small>
+                      <div className="preview-reply-top">
+                        <small>Reponse formateur</small>
+                        {reply.user_id === user.id && (
+                          <button onClick={() => deleteComment(reply.id)}>
+                            Supprimer
+                          </button>
+                        )}
+                      </div>
                       <p>{reply.comment}</p>
                     </div>
                   ))}

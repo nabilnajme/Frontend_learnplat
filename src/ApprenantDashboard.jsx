@@ -74,7 +74,10 @@ function ApprenantDashboard() {
         </div>
       )}
       <nav className="sidebar apprenant-sidebar">
-        <div className="sidebar__brand">EduLearn</div>
+        <div className="sidebar__brand">
+          <span>C</span>
+          <strong>oursera</strong>
+        </div>
 
         <ul className="sidebar__links">
           <li>

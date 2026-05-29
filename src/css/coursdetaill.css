@@ -173,6 +173,62 @@
   border-bottom: 2px solid #f0f2f8;
 }
 
+.progress-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.progress-head .section-title {
+  flex: 1;
+}
+
+.progress-head span {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #e8f0ff;
+  color: #1a56db;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.course-progress {
+  margin: -4px 0 20px;
+  padding: 14px;
+  border: 1px solid #edf1fb;
+  border-radius: 14px;
+  background: #f8faff;
+}
+
+.course-progress-bar {
+  width: 100%;
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e6ecf8;
+}
+
+.course-progress-bar div {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #1a56db, #22c55e);
+  transition: width 0.3s ease;
+}
+
+.course-progress p {
+  margin-top: 8px;
+  color: #5e6678;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.course-progress .progress-error {
+  color: #dc2626;
+  font-weight: 600;
+}
+
 .empty-msg {
   font-size: 14px;
   color: #bbb;
@@ -339,6 +395,40 @@
   background: #000;
 }
 
+.chapter-done-btn {
+  margin-top: 14px;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 999px;
+  background: #1a56db;
+  color: #fff;
+  font-family: "DM Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  margin-left: 35px;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+}
+
+.chapter-done-btn:hover {
+  background: #1445b5;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(26, 86, 219, 0.18);
+}
+
+.chapter-done-btn.completed {
+  background: #22c55e;
+  cursor: default;
+  box-shadow: none;
+}
+
+.chapter-done-btn:disabled {
+  opacity: 0.85;
+}
+
 .section-card.narrow-card {
   max-width: 700px;
   margin-bottom: 30px;
@@ -491,6 +581,13 @@
   margin-bottom: 6px;
 }
 
+.comment-actions,
+.reply-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .comment-top strong {
   color: #1a1a2e;
   font-size: 14px;
@@ -500,6 +597,22 @@
   color: #a3abc0;
   font-size: 12px;
   white-space: nowrap;
+}
+
+.comment-actions button,
+.reply-top button {
+  border: none;
+  background: transparent;
+  color: #ef4444;
+  font-family: "DM Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.comment-actions button:hover,
+.reply-top button:hover {
+  text-decoration: underline;
 }
 
 .comment-content p {
@@ -689,6 +802,11 @@
     padding: 22px 18px;
   }
 
+  .progress-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
   .quiz-row {
     align-items: flex-start;
     flex-direction: column;
@@ -706,6 +824,12 @@
     align-items: flex-start;
     flex-direction: column;
     gap: 2px;
+  }
+
+  .comment-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .reply-form {

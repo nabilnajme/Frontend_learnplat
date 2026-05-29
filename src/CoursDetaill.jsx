@@ -19,6 +19,7 @@ export default function CoursDetaill() {
   const [commentError, setCommentError] = useState("");
   const [replyText, setReplyText] = useState({});
   const [replyError, setReplyError] = useState("");
+  const [progressError, setProgressError] = useState("");
 
   useEffect(() => {
     axios
@@ -29,7 +30,7 @@ export default function CoursDetaill() {
   if (!course) return <div className="detail-loading">Chargement...</div>;
 
   function contactFormateur() {
-    if (!course.formateur?.phone) return;
+    if (!course.formateur || !course.formateur.phone) return;
 
     const cleanPhone = course.formateur.phone.replace(/\D/g, "");
     const message = `Bonjour, je suis un etudiant dans votre cours: ${course.title}`;
@@ -62,7 +63,9 @@ export default function CoursDetaill() {
       setCommentError("");
     } catch (err) {
       setCommentError(
-        err.response?.data?.message || "Erreur lors de l'ajout du commentaire.",
+        err.response && err.response.data
+          ? err.response.data.message
+          : "Erreur lors de l'ajout du commentaire.",
       );
     }
   }
@@ -90,10 +93,54 @@ export default function CoursDetaill() {
       setReplyError("");
     } catch (err) {
       setReplyError(
-        err.response?.data?.message || "Erreur lors de l'ajout de la reponse.",
+        err.response && err.response.data
+          ? err.response.data.message
+          : "Erreur lors de l'ajout de la reponse.",
       );
     }
   }
+
+  async function markChapterDone(chapterId) {
+    try {
+      await axios.post(API + `/chapters/${chapterId}/complete`, {}, { headers });
+
+      setCourse({
+        ...course,
+        completed_chapters: [...(course.completed_chapters || []), chapterId],
+      });
+      setProgressError("");
+    } catch (err) {
+      setProgressError(
+        err.response && err.response.data
+          ? err.response.data.message
+          : "Erreur lors de la progression.",
+      );
+    }
+  }
+
+  async function deleteComment(commentId) {
+    try {
+      await axios.delete(API + `/comments/${commentId}`, { headers });
+
+      setCourse({
+        ...course,
+        comments: (course.comments || []).filter(
+          (item) => item.id !== commentId && item.parent_id !== commentId,
+        ),
+      });
+    } catch (_) {
+      setCommentError("Erreur lors de la suppression du commentaire.");
+    }
+  }
+
+  function isChapterDone(chapterId) {
+    return (course.completed_chapters || []).includes(chapterId);
+  }
+
+  const completedCount = (course.completed_chapters || []).length;
+  const totalChapters = course.chapters.length;
+  const progressPercent =
+    totalChapters === 0 ? 0 : Math.round((completedCount / totalChapters) * 100);
 
   const mainComments = (course.comments || []).filter((item) => !item.parent_id);
   const isCourseFormateur =
@@ -129,8 +176,10 @@ export default function CoursDetaill() {
       <div className="hero-card">
         <div className="hero-top">
           <span className="hero-badge">Cours</span>
-          <span className="hero-author">Par {course.formateur?.name}</span>
-          {course.formateur?.phone && (
+          <span className="hero-author">
+            Par {course.formateur ? course.formateur.name : "—"}
+          </span>
+          {course.formateur && course.formateur.phone && (
             <button className="whatsapp-btn" onClick={contactFormateur}>
               Contacter
             </button>
@@ -143,6 +192,12 @@ export default function CoursDetaill() {
             <span className="stat-icon"></span>
             <span>{course.chapters.length} chapitres</span>
           </div>
+          {user.role !== "formateur" && (
+            <div className="stat">
+              <span className="stat-icon"></span>
+              <span>{progressPercent}% termine</span>
+            </div>
+          )}
           <div className="stat">
             <span className="stat-icon"></span>
             <span>
@@ -156,7 +211,27 @@ export default function CoursDetaill() {
         <div className="detail-left">
           {/* CHAPTERS */}
           <div className="section-card narrow-card">
-            <h2 className="section-title"> Chapitres</h2>
+            <div className="progress-head">
+              <h2 className="section-title"> Chapitres</h2>
+              {user.role !== "formateur" && (
+                <span>
+                  {completedCount}/{totalChapters} termines
+                </span>
+              )}
+            </div>
+
+            {user.role !== "formateur" && (
+              <div className="course-progress">
+                <div className="course-progress-bar">
+                  <div style={{ width: progressPercent + "%" }}></div>
+                </div>
+                <p>{progressPercent}% du cours termine</p>
+                {progressError && (
+                  <p className="progress-error">{progressError}</p>
+                )}
+              </div>
+            )}
+
             {course.chapters.length === 0 ? (
               <p className="empty-msg">Aucun chapitre disponible.</p>
             ) : (
@@ -185,6 +260,21 @@ export default function CoursDetaill() {
                       <video className="chapter-video" controls>
                         <source src={chapterFile(chapter.file_path)} />
                       </video>
+                    )}
+                    {user.role !== "formateur" && course.is_enrolled && (
+                      <button
+                        className={
+                          isChapterDone(chapter.id)
+                            ? "chapter-done-btn completed"
+                            : "chapter-done-btn"
+                        }
+                        onClick={() => markChapterDone(chapter.id)}
+                        disabled={isChapterDone(chapter.id)}
+                      >
+                        {isChapterDone(chapter.id)
+                          ? "Termine"
+                          : "Marquer comme termine"}
+                      </button>
                     )}
                   </div>
                 </div>
@@ -221,20 +311,38 @@ export default function CoursDetaill() {
                 mainComments.map((item) => (
                   <div className="comment-item" key={item.id}>
                     <div className="comment-avatar">
-                      {item.user?.name?.charAt(0).toUpperCase() || "A"}
+                      {item.user
+                        ? item.user.name.charAt(0).toUpperCase()
+                        : "A"}
                     </div>
                     <div className="comment-content">
                       <div className="comment-top">
-                        <strong>{item.user?.name || "Apprenant"}</strong>
-                        <span>
-                          {new Date(item.created_at).toLocaleDateString()}
-                        </span>
+                        <strong>
+                          {item.user ? item.user.name : "Apprenant"}
+                        </strong>
+                        <div className="comment-actions">
+                          <span>
+                            {new Date(item.created_at).toLocaleDateString()}
+                          </span>
+                          {item.user_id === user.id && (
+                            <button onClick={() => deleteComment(item.id)}>
+                              Supprimer
+                            </button>
+                          )}
+                        </div>
                       </div>
                       <p>{item.comment}</p>
 
                       {getReplies(item.id).map((reply) => (
                         <div className="reply-item" key={reply.id}>
-                          <div className="reply-label">Reponse formateur</div>
+                          <div className="reply-top">
+                            <div className="reply-label">Reponse formateur</div>
+                            {reply.user_id === user.id && (
+                              <button onClick={() => deleteComment(reply.id)}>
+                                Supprimer
+                              </button>
+                            )}
+                          </div>
                           <p>{reply.comment}</p>
                         </div>
                       ))}

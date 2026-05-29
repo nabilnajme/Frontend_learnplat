@@ -29,7 +29,7 @@
 .ad-brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 3px;
   margin-bottom: 40px;
   padding-left: 8px;
 }
@@ -451,6 +451,61 @@
   background: #ffe0e0;
 }
 
+.ad-comments-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+.ad-comment-card {
+  background: #fff;
+  border: 1px solid #eef0f6;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.ad-comment-top,
+.ad-comment-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ad-comment-user {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0a0f1e;
+}
+
+.ad-comment-text {
+  margin: 16px 0;
+  color: #374151;
+  font-size: 14px;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.ad-comment-bottom {
+  padding-top: 12px;
+  border-top: 1px solid #f4f4f8;
+}
+
+.ad-comment-bottom span {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.ad-empty-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 34px;
+  color: #9ca3af;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
 @media (max-width: 900px) {
   .ad-stats {
     grid-template-columns: repeat(2, 1fr);
@@ -535,5 +590,15 @@
 
   .ad-table {
     min-width: 680px;
+  }
+
+  .ad-comments-list {
+    grid-template-columns: 1fr;
+  }
+
+  .ad-comment-top,
+  .ad-comment-bottom {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }

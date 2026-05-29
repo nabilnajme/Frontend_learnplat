@@ -64,7 +64,10 @@ export default function FormCreatecourse() {
         </div>
       )}
       <nav className="sidebar formateur-sidebar">
-        <div className="sidebar__brand">EduLearn</div>
+        <div className="sidebar__brand">
+          <span>C</span>
+          <strong>oursera</strong>
+        </div>
         <ul className="sidebar__links">
           <li>
             <NavLink to="/dashboard/formateur" className="link">

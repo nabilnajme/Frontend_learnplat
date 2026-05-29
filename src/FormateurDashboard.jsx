@@ -12,7 +12,12 @@ function FormateurDashboard() {
   const token = localStorage.getItem("token");
   const headers = { Authorization: `Bearer ${token}` };
 
-  const [stats, setStats] = useState(null);
+  const [stats, setStats] = useState({
+    total_courses: "—",
+    total_students: "—",
+    published: "—",
+    draft: "—",
+  });
 
   const [latest, setLatest] = useState({ courses: [], chapters: [] });
   const [showPhonePopup, setShowPhonePopup] = useState(
@@ -68,7 +73,10 @@ function FormateurDashboard() {
         </div>
       )}
       <nav className="sidebar formateur-sidebar">
-        <div className="sidebar__brand">EduLearn</div>
+        <div className="sidebar__brand">
+          <span>C</span>
+          <strong>oursera</strong>
+        </div>
 
         <ul className="sidebar__links">
           <li>
@@ -122,12 +130,156 @@ function FormateurDashboard() {
             onClick={() => navigate("/dashboard/formateur/create")}
           >
             Create course
-            <span className="star-1">*</span>
-            <span className="star-2">*</span>
-            <span className="star-3">*</span>
-            <span className="star-4">*</span>
-            <span className="star-5">*</span>
-            <span className="star-6">*</span>
+            <div className="star-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlSpace="preserve"
+                version="1.1"
+                style={{
+                  shapeRendering: "geometricPrecision",
+                  textRendering: "geometricPrecision",
+                  imageRendering: "optimizeQuality",
+                  fillRule: "evenodd",
+                  clipRule: "evenodd",
+                }}
+                viewBox="0 0 784.11 815.53"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+              >
+                <defs></defs>
+                <g id="Layer_x0020_1">
+                  <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                  <path
+                    className="fil0"
+                    d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+            <div className="star-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlSpace="preserve"
+                version="1.1"
+                style={{
+                  shapeRendering: "geometricPrecision",
+                  textRendering: "geometricPrecision",
+                  imageRendering: "optimizeQuality",
+                  fillRule: "evenodd",
+                  clipRule: "evenodd",
+                }}
+                viewBox="0 0 784.11 815.53"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+              >
+                <defs></defs>
+                <g id="Layer_x0020_1">
+                  <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                  <path
+                    className="fil0"
+                    d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+            <div className="star-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlSpace="preserve"
+                version="1.1"
+                style={{
+                  shapeRendering: "geometricPrecision",
+                  textRendering: "geometricPrecision",
+                  imageRendering: "optimizeQuality",
+                  fillRule: "evenodd",
+                  clipRule: "evenodd",
+                }}
+                viewBox="0 0 784.11 815.53"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+              >
+                <defs></defs>
+                <g id="Layer_x0020_1">
+                  <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                  <path
+                    className="fil0"
+                    d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+            <div className="star-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlSpace="preserve"
+                version="1.1"
+                style={{
+                  shapeRendering: "geometricPrecision",
+                  textRendering: "geometricPrecision",
+                  imageRendering: "optimizeQuality",
+                  fillRule: "evenodd",
+                  clipRule: "evenodd",
+                }}
+                viewBox="0 0 784.11 815.53"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+              >
+                <defs></defs>
+                <g id="Layer_x0020_1">
+                  <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                  <path
+                    className="fil0"
+                    d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+            <div className="star-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlSpace="preserve"
+                version="1.1"
+                style={{
+                  shapeRendering: "geometricPrecision",
+                  textRendering: "geometricPrecision",
+                  imageRendering: "optimizeQuality",
+                  fillRule: "evenodd",
+                  clipRule: "evenodd",
+                }}
+                viewBox="0 0 784.11 815.53"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+              >
+                <defs></defs>
+                <g id="Layer_x0020_1">
+                  <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                  <path
+                    className="fil0"
+                    d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
+            <div className="star-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlSpace="preserve"
+                version="1.1"
+                style={{
+                  shapeRendering: "geometricPrecision",
+                  textRendering: "geometricPrecision",
+                  imageRendering: "optimizeQuality",
+                  fillRule: "evenodd",
+                  clipRule: "evenodd",
+                }}
+                viewBox="0 0 784.11 815.53"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+              >
+                <defs></defs>
+                <g id="Layer_x0020_1">
+                  <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                  <path
+                    className="fil0"
+                    d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                  ></path>
+                </g>
+              </svg>
+            </div>
           </button>
         </div>
 
@@ -135,22 +287,22 @@ function FormateurDashboard() {
         <div className="f-stats">
           <div className="f-stat-card f-stat-blue">
             <p className="f-stat-label">Cours créés</p>
-            <p className="f-stat-num">{stats?.total_courses ?? "—"}</p>
+            <p className="f-stat-num">{stats.total_courses}</p>
             <p className="f-stat-hint">au total</p>
           </div>
           <div className="f-stat-card f-stat-green">
             <p className="f-stat-label">Apprenants</p>
-            <p className="f-stat-num">{stats?.total_students ?? "—"}</p>
+            <p className="f-stat-num">{stats.total_students}</p>
             <p className="f-stat-hint">inscrits à vos cours</p>
           </div>
           <div className="f-stat-card f-stat-indigo">
             <p className="f-stat-label">Publiés</p>
-            <p className="f-stat-num">{stats?.published ?? "—"}</p>
+            <p className="f-stat-num">{stats.published}</p>
             <p className="f-stat-hint">cours visibles</p>
           </div>
           <div className="f-stat-card f-stat-amber">
             <p className="f-stat-label">Brouillons</p>
-            <p className="f-stat-num">{stats?.draft ?? "—"}</p>
+            <p className="f-stat-num">{stats.draft}</p>
             <p className="f-stat-hint">cours en attente</p>
           </div>
         </div>
@@ -228,10 +380,9 @@ function FormateurDashboard() {
                     <div className="f-lrow-info">
                       <p className="f-lrow-name">{chapter.title}</p>
                       <p className="f-lrow-meta">
-                        {chapter.course?.title ?? "—"}
+                        {chapter.course ? chapter.course.title : "—"}
                       </p>
                     </div>
-                    <span className="f-lbadge f-lb-blue">Cours lié</span>
                   </div>
                 ))
               )}

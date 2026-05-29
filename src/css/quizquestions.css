@@ -318,26 +318,61 @@
 }
 
 .qq-delete-btn {
-  background: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(4, 70, 15);
   border: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
   cursor: pointer;
-  font-size: 16px;
-  opacity: 0.4;
-  padding: 4px;
-  border-radius: 6px;
-  transition:
-    opacity 0.2s,
-    background 0.2s;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: relative;
   flex-shrink: 0;
 }
 
 .qq-delete-btn:hover {
-  opacity: 1;
-  background: rgba(255, 80, 80, 0.15);
+  width: 90px;
+  border-radius: 50px;
+  transition-duration: 0.3s;
+  background-color: rgb(255, 69, 69);
+  align-items: center;
 }
 
-.img-delete {
+.delete-svgIcon {
+  width: 15px;
+  transition-duration: 0.3s;
+}
+
+.delete-svgIcon path {
+  fill: white;
+}
+
+.qq-delete-btn:hover .delete-svgIcon {
   width: 20px;
+  transition-duration: 0.3s;
+  transform: rotate(360deg);
+}
+
+.qq-delete-btn::before {
+  display: none;
+  content: "Delete";
+  color: white;
+  transition-duration: 0.3s;
+  font-size: 2px;
+}
+
+.qq-delete-btn:hover::before {
+  display: block;
+  padding-right: 10px;
+  font-size: 13px;
+  opacity: 1;
+  transform: translateY(0px);
+  transition-duration: 0.3s;
 }
 
 .duration_section {

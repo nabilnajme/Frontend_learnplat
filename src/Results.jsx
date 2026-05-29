@@ -45,7 +45,7 @@ export default function Results() {
         );
   const successRate = total === 0 ? 0 : Math.round((passed / total) * 100);
   const totalTime = results.reduce(
-    (s, r) => s + (r.quiz?.duration_minutes || 0),
+    (s, r) => s + (r.quiz ? r.quiz.duration_minutes : 0),
     0,
   );
 
@@ -63,7 +63,10 @@ export default function Results() {
     .slice(0, 6)
     .reverse()
     .map((r) => ({
-      name: r.quiz?.title?.split(" ").slice(0, 2).join(" ") || "Quiz",
+      name:
+        r.quiz && r.quiz.title
+          ? r.quiz.title.split(" ").slice(0, 2).join(" ")
+          : "Quiz",
       score: Math.round((r.score / r.total_questions) * 100),
     }));
 
@@ -201,7 +204,12 @@ export default function Results() {
                 <div className="rp-row" key={r.id}>
                   <div className={"rp-dot " + (ok ? "dot-ok" : "dot-fail")} />
                   <div className="rp-row-info">
-                    <p className="rp-row-title">{r.quiz?.title || "Quiz"}</p>
+                    <p className="rp-row-title">
+                      {r.quiz ? r.quiz.title : "Quiz"}{" "}
+                      {r.quiz && r.quiz.course && (
+                        <span>({r.quiz.course.title})</span>
+                      )}
+                    </p>
                     <p className="rp-row-date">
                       {new Date(r.passed_at).toLocaleDateString("fr-FR", {
                         day: "numeric",

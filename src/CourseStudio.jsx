@@ -27,7 +27,12 @@ export default function CourseStudio() {
   const [quizDuration, setQuizDuration] = useState("");
 
   const [quizzes, setQuizzes] = useState([]);
-  const [analytics, setAnalytics] = useState(null);
+  const [analytics, setAnalytics] = useState({
+    total_attempts: 0,
+    passed: 0,
+    avg_score: 0,
+    success_rate: 0,
+  });
   const [toast, setToast] = useState(null);
 
   function showToast(message, type = "info") {
@@ -88,7 +93,7 @@ export default function CourseStudio() {
       navigate("/dashboard/formateur/courses");
     } catch (err) {
       console.error(err.response);
-      if (err.response?.status === 400) {
+      if (err.response && err.response.status === 400) {
         showToast(err.response.data.error, "error");
       } else {
         showToast("Erreur lors de la suppression.", "error");
@@ -167,7 +172,7 @@ export default function CourseStudio() {
           </div>
           <div className="studio-stat">
             <span className="studio-stat-num">
-              {course.quizzes?.length ?? 0}
+              {course.quizzes ? course.quizzes.length : 0}
             </span>
             <span className="studio-stat-label">Quiz</span>
           </div>
@@ -292,23 +297,23 @@ export default function CourseStudio() {
               <div className="analytics-card analytics-blue">
                 <p className="analytics-label">Tentatives totales</p>
                 <p className="analytics-num">
-                  {analytics?.total_attempts ?? 0}
+                  {analytics.total_attempts}
                 </p>
                 <p className="analytics-hint">étudiants ont passé un quiz</p>
               </div>
               <div className="analytics-card analytics-green">
                 <p className="analytics-label">Quiz réussis</p>
-                <p className="analytics-num">{analytics?.passed ?? 0}</p>
+                <p className="analytics-num">{analytics.passed}</p>
                 <p className="analytics-hint">score ≥ 70%</p>
               </div>
               <div className="analytics-card analytics-indigo">
                 <p className="analytics-label">Score moyen</p>
-                <p className="analytics-num">{analytics?.avg_score ?? 0}%</p>
+                <p className="analytics-num">{analytics.avg_score}%</p>
                 <p className="analytics-hint">moyenne globale</p>
               </div>
               <div className="analytics-card analytics-amber">
                 <p className="analytics-label">Taux de réussite</p>
-                <p className="analytics-num">{analytics?.success_rate ?? 0}%</p>
+                <p className="analytics-num">{analytics.success_rate}%</p>
                 <p className="analytics-hint">réussis / total</p>
               </div>
             </div>

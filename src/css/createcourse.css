@@ -20,6 +20,33 @@
   color: #fff;
 }
 
+.sidebar__brand {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 32px;
+  padding-left: 8px;
+}
+
+.sidebar.formateur-sidebar .sidebar__brand span {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #10b981, #86efac);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.sidebar.formateur-sidebar .sidebar__brand strong {
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+}
+
 .logout-btn-modern {
   display: flex;
   align-items: center;
