@@ -275,6 +275,15 @@ function FormateurCourses() {
                   </div>
                 </div>
                 <div className="f-course-actions">
+                  <button
+                    className="f-comments-btn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/courses/${course.id}/details`);
+                    }}
+                  >
+                    Commentaires
+                  </button>
                   {course.is_published ? (
                     <span className="f-badge-published">✓ Publié</span>
                   ) : (

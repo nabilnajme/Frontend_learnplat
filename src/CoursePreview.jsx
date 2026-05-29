@@ -13,6 +13,8 @@ export default function CoursePreview() {
 
   const [course, setCourse] = useState(null);
   const [toast, setToast] = useState(null);
+  const [comment, setComment] = useState("");
+  const [commentError, setCommentError] = useState("");
 
   function showToast(message, type = "info") {
     setToast({ message, type });
@@ -50,9 +52,42 @@ export default function CoursePreview() {
     );
   }
 
+  async function addComment(e) {
+    e.preventDefault();
+
+    if (comment.trim() === "") {
+      setCommentError("Ecris un commentaire avant de publier.");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        API + `/courses/${id}/comments`,
+        { comment },
+        { headers },
+      );
+
+      setCourse({
+        ...course,
+        comments: [res.data, ...(course.comments || [])],
+      });
+      setComment("");
+      setCommentError("");
+    } catch (err) {
+      setCommentError(
+        err.response?.data?.message || "Inscris-toi pour commenter ce cours.",
+      );
+    }
+  }
+
   if (!course) return <div className="preview-loading">Chargement...</div>;
 
   const firstChapter = course.chapters[0];
+  const mainComments = (course.comments || []).filter((item) => !item.parent_id);
+
+  function getReplies(commentId) {
+    return (course.comments || []).filter((item) => item.parent_id === commentId);
+  }
 
   return (
     <div className="preview-page">
@@ -131,6 +166,60 @@ export default function CoursePreview() {
           <div className="preview-note">
             Inscrivez-vous pour acceder au contenu complet du cours.
           </div>
+        </div>
+      </div>
+
+      <div className="preview-comments preview-card">
+        <div className="preview-comments-head">
+          <div>
+            <h2>Commentaires</h2>
+            <p>Regarde les avis des apprenants sur ce cours.</p>
+          </div>
+          <span>{mainComments.length}</span>
+        </div>
+
+        {course.is_enrolled ? (
+          <form className="preview-comment-form" onSubmit={addComment}>
+            <textarea
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder="Ecrire un commentaire..."
+            ></textarea>
+            {commentError && <p className="preview-comment-error">{commentError}</p>}
+            <button type="submit">Publier</button>
+          </form>
+        ) : (
+          <div className="preview-comment-locked">
+            Inscris-toi au cours pour pouvoir ajouter un commentaire.
+          </div>
+        )}
+
+        <div className="preview-comments-list">
+          {mainComments.length === 0 ? (
+            <p className="preview-empty">Aucun commentaire pour le moment.</p>
+          ) : (
+            mainComments.map((item) => (
+              <div className="preview-comment" key={item.id}>
+                <div className="preview-comment-avatar">
+                  {item.user?.name?.charAt(0).toUpperCase() || "A"}
+                </div>
+                <div className="preview-comment-body">
+                  <div className="preview-comment-top">
+                    <strong>{item.user?.name || "Apprenant"}</strong>
+                    <span>{new Date(item.created_at).toLocaleDateString()}</span>
+                  </div>
+                  <p>{item.comment}</p>
+
+                  {getReplies(item.id).map((reply) => (
+                    <div className="preview-reply" key={reply.id}>
+                      <small>Reponse formateur</small>
+                      <p>{reply.comment}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </div>

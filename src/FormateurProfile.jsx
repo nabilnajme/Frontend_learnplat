@@ -11,6 +11,7 @@ export default function FormateurProfile() {
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
+  const [phone, setPhone] = useState(user.phone || "");
 
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -26,7 +27,7 @@ export default function FormateurProfile() {
     try {
       const res = await axios.put(
         API + "/dashboard/apprenant/profile",
-        { name, email },
+        { name, email, phone },
         { headers },
       );
       localStorage.setItem("user", JSON.stringify(res.data));
@@ -100,6 +101,18 @@ export default function FormateurProfile() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
+                </div>
+                <div className="fp-field">
+                  <label>Numero WhatsApp</label>
+                  <input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="Ex: 212600000000"
+                  />
+                  <small>
+                    Ce numero sera utilise par les apprenants pour vous contacter.
+                  </small>
                 </div>
                 <button type="submit" className="fp-btn-save">
                   Enregistrer

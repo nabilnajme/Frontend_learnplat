@@ -15,6 +15,10 @@ export default function CoursDetaill() {
   const headers = { Authorization: `Bearer ${token}` };
   const user = JSON.parse(localStorage.getItem("user"));
   const [course, setCourse] = useState(null);
+  const [comment, setComment] = useState("");
+  const [commentError, setCommentError] = useState("");
+  const [replyText, setReplyText] = useState({});
+  const [replyError, setReplyError] = useState("");
 
   useEffect(() => {
     axios
@@ -35,6 +39,70 @@ export default function CoursDetaill() {
     );
   }
 
+  async function addComment(e) {
+    e.preventDefault();
+
+    if (comment.trim() === "") {
+      setCommentError("Ecris un commentaire avant de publier.");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        API + `/courses/${id}/comments`,
+        { comment },
+        { headers },
+      );
+
+      setCourse({
+        ...course,
+        comments: [res.data, ...(course.comments || [])],
+      });
+      setComment("");
+      setCommentError("");
+    } catch (err) {
+      setCommentError(
+        err.response?.data?.message || "Erreur lors de l'ajout du commentaire.",
+      );
+    }
+  }
+
+  async function addReply(e, commentId) {
+    e.preventDefault();
+
+    if (!replyText[commentId] || replyText[commentId].trim() === "") {
+      setReplyError("Ecris une reponse avant de publier.");
+      return;
+    }
+
+    try {
+      const res = await axios.post(
+        API + `/courses/${id}/comments`,
+        { comment: replyText[commentId], parent_id: commentId },
+        { headers },
+      );
+
+      setCourse({
+        ...course,
+        comments: [res.data, ...(course.comments || [])],
+      });
+      setReplyText({ ...replyText, [commentId]: "" });
+      setReplyError("");
+    } catch (err) {
+      setReplyError(
+        err.response?.data?.message || "Erreur lors de l'ajout de la reponse.",
+      );
+    }
+  }
+
+  const mainComments = (course.comments || []).filter((item) => !item.parent_id);
+  const isCourseFormateur =
+    user.role === "formateur" && course.formateur_id === user.id;
+
+  function getReplies(commentId) {
+    return (course.comments || []).filter((item) => item.parent_id === commentId);
+  }
+
   return (
     <div className="detail-page">
       <div className="nav_details">
@@ -44,7 +112,13 @@ export default function CoursDetaill() {
         <div className="nav_link">
           <button
             className="profile_button"
-            onClick={() => navigate("/dashboard/apprenant/profile")}
+            onClick={() =>
+              navigate(
+                user.role === "formateur"
+                  ? "/dashboard/formateur/profile"
+                  : "/dashboard/apprenant/profile",
+              )
+            }
           >
             <div className="avatar">{user.name.charAt(0).toUpperCase()}</div>
           </button>
@@ -79,43 +153,120 @@ export default function CoursDetaill() {
         </div>
       </div>
       <div className="detail-body">
-        {/* CHAPTERS */}
-        <div className="section-card narrow-card">
-          <h2 className="section-title"> Chapitres</h2>
-          {course.chapters.length === 0 ? (
-            <p className="empty-msg">Aucun chapitre disponible.</p>
-          ) : (
-            course.chapters.map((chapter) => (
-              <div className="accordion" key={chapter.id}>
-                <input type="checkbox" id={`ch-${chapter.id}`} />
-                <label
-                  className="accordion-header"
-                  htmlFor={`ch-${chapter.id}`}
-                >
-                  {chapter.title}
-                </label>
-                <div className="accordion-body">
-                  <p>{chapter.content}</p>
-                  {chapter.file_path && chapter.file_type === "pdf" && (
-                    <a
-                      className="chapter-file-link"
-                      href={chapterFile(chapter.file_path)}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Ouvrir le PDF
-                    </a>
-                  )}
-                  {chapter.file_path && chapter.file_type !== "pdf" && (
-                    <video className="chapter-video" controls>
-                      <source src={chapterFile(chapter.file_path)} />
-                    </video>
-                  )}
+        <div className="detail-left">
+          {/* CHAPTERS */}
+          <div className="section-card narrow-card">
+            <h2 className="section-title"> Chapitres</h2>
+            {course.chapters.length === 0 ? (
+              <p className="empty-msg">Aucun chapitre disponible.</p>
+            ) : (
+              course.chapters.map((chapter) => (
+                <div className="accordion" key={chapter.id}>
+                  <input type="checkbox" id={`ch-${chapter.id}`} />
+                  <label
+                    className="accordion-header"
+                    htmlFor={`ch-${chapter.id}`}
+                  >
+                    {chapter.title}
+                  </label>
+                  <div className="accordion-body">
+                    <p>{chapter.content}</p>
+                    {chapter.file_path && chapter.file_type === "pdf" && (
+                      <a
+                        className="chapter-file-link"
+                        href={chapterFile(chapter.file_path)}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Ouvrir le PDF
+                      </a>
+                    )}
+                    {chapter.file_path && chapter.file_type !== "pdf" && (
+                      <video className="chapter-video" controls>
+                        <source src={chapterFile(chapter.file_path)} />
+                      </video>
+                    )}
+                  </div>
                 </div>
+              ))
+            )}
+          </div>
+
+          {/* COMMENTS */}
+          <div className="section-card comments-card">
+            <div className="comments-head">
+              <div>
+                <h2 className="section-title comments-title">Commentaires</h2>
+                <p>Partage ton avis sur ce cours.</p>
               </div>
-            ))
-          )}
+              <span>{mainComments.length}</span>
+            </div>
+
+            {user.role !== "formateur" && (
+              <form className="comment-form" onSubmit={addComment}>
+                <textarea
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder="Ecrire un commentaire..."
+                ></textarea>
+                {commentError && <p className="comment-error">{commentError}</p>}
+                <button type="submit">Publier</button>
+              </form>
+            )}
+
+            <div className="comments-list">
+              {mainComments.length === 0 ? (
+                <p className="empty-msg">Aucun commentaire pour le moment.</p>
+              ) : (
+                mainComments.map((item) => (
+                  <div className="comment-item" key={item.id}>
+                    <div className="comment-avatar">
+                      {item.user?.name?.charAt(0).toUpperCase() || "A"}
+                    </div>
+                    <div className="comment-content">
+                      <div className="comment-top">
+                        <strong>{item.user?.name || "Apprenant"}</strong>
+                        <span>
+                          {new Date(item.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <p>{item.comment}</p>
+
+                      {getReplies(item.id).map((reply) => (
+                        <div className="reply-item" key={reply.id}>
+                          <div className="reply-label">Reponse formateur</div>
+                          <p>{reply.comment}</p>
+                        </div>
+                      ))}
+
+                      {isCourseFormateur && (
+                        <form
+                          className="reply-form"
+                          onSubmit={(e) => addReply(e, item.id)}
+                        >
+                          <input
+                            type="text"
+                            value={replyText[item.id] || ""}
+                            onChange={(e) =>
+                              setReplyText({
+                                ...replyText,
+                                [item.id]: e.target.value,
+                              })
+                            }
+                            placeholder="Repondre a ce commentaire..."
+                          />
+                          <button type="submit">Repondre</button>
+                        </form>
+                      )}
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+            {replyError && <p className="comment-error">{replyError}</p>}
+          </div>
         </div>
+
         {/* QUIZZES */}
         <div className="section-card quiz-one">
           <h2 className="section-title"> Quiz du cours</h2>

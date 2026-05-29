@@ -641,6 +641,25 @@
   background: #145232;
 }
 
+.f-comments-btn {
+  padding: 7px 14px;
+  background: #eef8f2;
+  color: #0d2b1f;
+  border: 1px solid #ccebdd;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+}
+
+.f-comments-btn:hover {
+  background: #dff5e9;
+  transform: translateY(-1px);
+}
+
 .img-warning {
   width: 30px;
 }

@@ -153,6 +153,12 @@
   box-shadow: 0 0 0 3px rgba(15, 31, 69, 0.07);
 }
 
+.fp-field small {
+  color: #7b837d;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 /* ---- button ---- */
 .fp-btn-save {
   padding: 12px 28px;
