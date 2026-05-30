@@ -16,16 +16,16 @@ function Landing() {
 
   const features = [
     {
-      title: "Interactive Learning",
-      text: "Engaging quizzes and exercises to help you practice while learning.",
+      title: "Learn With Real Course Content",
+      text: "Students can access chapters, PDFs, videos, and quizzes from one course page.",
     },
     {
-      title: "Track Progress",
-      text: "Monitor your learning journey and see your results clearly.",
+      title: "Follow Your Progress",
+      text: "Apprenants can mark chapters as completed and see their learning progress.",
     },
     {
-      title: "Expert Instructors",
-      text: "Learn from formateurs who can guide students step by step.",
+      title: "Connect With Formateurs",
+      text: "Students can contact the formateur by WhatsApp and discuss through course comments.",
     },
   ];
 
