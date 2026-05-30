@@ -1,0 +1,252 @@
+.auth-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(236, 72, 153, 0.1), transparent 38%),
+    #f8fafc;
+  color: #07051f;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.auth-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 7%;
+  background: white;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.auth-logo {
+  color: #07051f;
+  font-size: 28px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.auth-logo span,
+.auth-text h1 span,
+.auth-footer span {
+  color: #ec4899;
+}
+
+.auth-header-links {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.auth-header-links a {
+  color: #334155;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-header-links a:hover {
+  color: #ec4899;
+}
+
+.auth-header-btn {
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #ec4899;
+  color: white !important;
+}
+
+.auth-header-btn:hover {
+  background: #db2777;
+}
+
+.auth-main {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  align-items: center;
+  gap: 50px;
+  max-width: 1120px;
+  min-height: calc(100vh - 205px);
+  margin: 0 auto;
+  padding: 58px 7%;
+}
+
+.auth-text {
+  max-width: 540px;
+}
+
+.auth-small-title {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #fce7f3;
+  color: #be185d;
+  font-weight: 800;
+}
+
+.auth-text h1 {
+  margin: 0;
+  color: #07051f;
+  font-size: 48px;
+  line-height: 1.1;
+  font-weight: 900;
+}
+
+.auth-text > p:not(.auth-small-title) {
+  margin-top: 20px;
+  color: #64748b;
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.auth-card {
+  position: relative;
+  padding: 12px;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.14);
+}
+
+.auth-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: 26px;
+  background: linear-gradient(135deg, #ec4899, #07051f);
+}
+
+.auth-card .login-form,
+.auth-card .register-form {
+  width: 100%;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: none;
+}
+
+.auth-card h2 {
+  margin: 0;
+  color: #07051f;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.auth-form-subtitle {
+  margin: -4px 0 8px;
+  color: #64748b;
+  text-align: center;
+  font-size: 14px;
+}
+
+.auth-card input,
+.auth-card select {
+  padding: 13px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.auth-card input:focus,
+.auth-card select:focus {
+  border-color: #ec4899;
+  box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.12);
+}
+
+.auth-card button {
+  padding: 13px;
+  border-radius: 999px;
+  background: #ec4899;
+  font-weight: 800;
+}
+
+.auth-card button:hover {
+  background: #db2777;
+}
+
+.auth-form-link {
+  margin: 4px 0 0;
+  color: #64748b;
+  text-align: center;
+  font-size: 14px;
+}
+
+.auth-form-link a {
+  color: #ec4899;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.auth-footer {
+  padding: 34px 7%;
+  background: #07051f;
+  color: white;
+  text-align: center;
+}
+
+.auth-footer h2 {
+  margin: 0 0 8px;
+  font-size: 26px;
+}
+
+.auth-footer p {
+  margin: 7px 0;
+  color: #cbd5e1;
+}
+
+.auth-copy {
+  color: #64748b !important;
+  font-size: 14px;
+}
+
+@media (max-width: 850px) {
+  .auth-main {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 28px;
+    padding-top: 36px;
+  }
+
+  .auth-text {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .auth-text h1 {
+    font-size: 38px;
+  }
+
+  .auth-card {
+    max-width: 430px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .auth-header {
+    padding: 16px 5%;
+  }
+
+  .auth-logo {
+    font-size: 24px;
+  }
+
+  .auth-header-links {
+    gap: 10px;
+  }
+
+  .auth-header-btn {
+    padding: 9px 12px;
+  }
+
+  .auth-main {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .auth-text h1 {
+    font-size: 31px;
+  }
+
+  .auth-card .login-form,
+  .auth-card .register-form {
+    padding: 24px 18px;
+  }
+}

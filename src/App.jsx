@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Register from "./Register";
 import Login from "./Login";
+import Landing from "./Landing";
 import ApprenantDashboard from "./ApprenantDashboard";
 import FormateurDashboard from "./FormateurDashboard";
 import CoursesList from "./CoursesList";
@@ -30,6 +31,7 @@ function App() {
     <>
       <Router>
         <Routes>
+          <Route path="/" element={<Landing />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           {/* ===================================Apprenant Dashboard========================== */}

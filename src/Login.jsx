@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { API } from "./App";
 import "./css/login.css";
+import "./css/auth.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
+    <div className="auth-page">
       {toast && (
         <div className={"toast toast-" + toast.type}>
           <div className="toast-icon">
@@ -44,20 +45,57 @@ function Login() {
           <p>{toast.message}</p>
         </div>
       )}
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Login</button>
-      </form>
+      <header className="auth-header">
+        <Link to="/" className="auth-logo">
+          Cour<span>sera</span>
+        </Link>
+        <div className="auth-header-links">
+          <Link to="/">Home</Link>
+          <Link to="/register" className="auth-header-btn">
+            Create account
+          </Link>
+        </div>
+      </header>
+
+      <main className="auth-main">
+        <section className="auth-text">
+          <p className="auth-small-title">Welcome back</p>
+          <h1>Continue your learning journey.</h1>
+          <p>
+            Login to see your courses, chapters, quiz results, comments, and
+            progress in one place.
+          </p>
+        </section>
+
+        <section className="auth-card">
+          <form className="login-form" onSubmit={handleSubmit}>
+            <h2>Login</h2>
+            <p className="auth-form-subtitle">Enter your account information.</p>
+            <input
+              type="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button type="submit">Login</button>
+            <p className="auth-form-link">
+              No account yet? <Link to="/register">Register here</Link>
+            </p>
+          </form>
+        </section>
+      </main>
+
+      <footer className="auth-footer">
+        <h2>
+          Cour<span>sera</span>
+        </h2>
+        <p>Learn smarter, grow faster.</p>
+        <p className="auth-copy">Copyright 2026 Coursera. All rights reserved.</p>
+      </footer>
     </div>
   );
 }
