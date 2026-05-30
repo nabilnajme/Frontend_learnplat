@@ -141,12 +141,33 @@
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   background: #f8fafc;
+  color: #07051f;
+  font-weight: 600;
 }
 
 .auth-card input:focus,
 .auth-card select:focus {
   border-color: #ec4899;
   box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.12);
+}
+
+.auth-card select {
+  cursor: pointer;
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #ec4899 50%),
+    linear-gradient(135deg, #ec4899 50%, transparent 50%);
+  background-position:
+    calc(100% - 22px) 19px,
+    calc(100% - 15px) 19px;
+  background-size: 7px 7px, 7px 7px;
+  background-repeat: no-repeat;
+}
+
+.auth-card select option {
+  background: white;
+  color: #07051f;
+  font-weight: 600;
 }
 
 .auth-card button {
