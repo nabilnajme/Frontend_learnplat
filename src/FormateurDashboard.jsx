@@ -45,8 +45,8 @@ function FormateurDashboard() {
     e.preventDefault();
 
     const res = await axios.put(
-      API + "/formateur/phone",
-      { phone },
+      API + "/dashboard/apprenant/profile",
+      { name: user.name, email: user.email, phone: phone },
       { headers },
     );
 
