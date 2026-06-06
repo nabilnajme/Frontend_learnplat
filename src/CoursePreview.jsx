@@ -24,7 +24,7 @@ export default function CoursePreview() {
 
   useEffect(() => {
     axios
-      .get(API + `/courses/${id}/details`, { headers })
+      .get(API + `/courses/${id}/preview`, { headers })
       .then((res) => setCourse(res.data));
   }, [id]);
 
@@ -174,11 +174,11 @@ export default function CoursePreview() {
         <div className="preview-card preview-small">
           <h2>Apercu rapide</h2>
           <div className="preview-stat">
-            <span>{course.chapters.length}</span>
+            <span>{course.chapters_count}</span>
             <p>Chapitres</p>
           </div>
           <div className="preview-stat">
-            <span>{course.quizzes.length}</span>
+            <span>{course.quizzes_count}</span>
             <p>Quiz</p>
           </div>
           <div className="preview-note">

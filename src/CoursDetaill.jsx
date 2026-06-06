@@ -24,7 +24,12 @@ export default function CoursDetaill() {
   useEffect(() => {
     axios
       .get(API + `/courses/${id}/details`, { headers })
-      .then((res) => setCourse(res.data));
+      .then((res) => setCourse(res.data))
+      .catch((error) => {
+        if (error.response && error.response.status === 403) {
+          navigate(`/courses/${id}/preview`);
+        }
+      });
   }, [id]);
 
   if (!course) return <div className="detail-loading">Chargement...</div>;
@@ -228,7 +233,8 @@ export default function CoursDetaill() {
       <div className="detail-body">
         <div className="detail-left">
           {/* CHAPTERS */}
-          <div className="section-card narrow-card">
+          {user.role !== "formateur" && (
+            <div className="section-card narrow-card">
             <div className="progress-head">
               <h2 className="section-title"> Chapitres</h2>
               {user.role !== "formateur" && (
@@ -298,7 +304,8 @@ export default function CoursDetaill() {
                 </div>
               ))
             )}
-          </div>
+            </div>
+          )}
 
           {/* COMMENTS */}
           <div className="section-card comments-card">
@@ -394,37 +401,39 @@ export default function CoursDetaill() {
         </div>
 
         {/* QUIZZES */}
-        <div className="section-card quiz-one">
-          <h2 className="section-title"> Quiz du cours</h2>
-          {course.quizzes.length === 0 ? (
-            <p className="empty-msg">Aucun quiz disponible.</p>
-          ) : (
-            course.quizzes.map((quiz, index) => (
-              <div className="quiz-row" key={quiz.id}>
-                <div className="quiz-left">
-                  <div className="img_container">
-                    <img src={img2} alt="play" className="play_img" />
-                  </div>
-                  <div>
-                    <p className="quiz-title">{quiz.title}</p>
-                    <div className="duration_section">
-                      <img className="duration_img" src={img1} alt="time" />
-                      <p className="quiz-duration">
-                        {quiz.duration_minutes} min
-                      </p>
+        {user.role !== "formateur" && (
+          <div className="section-card quiz-one">
+            <h2 className="section-title"> Quiz du cours</h2>
+            {course.quizzes.length === 0 ? (
+              <p className="empty-msg">Aucun quiz disponible.</p>
+            ) : (
+              course.quizzes.map((quiz) => (
+                <div className="quiz-row" key={quiz.id}>
+                  <div className="quiz-left">
+                    <div className="img_container">
+                      <img src={img2} alt="play" className="play_img" />
+                    </div>
+                    <div>
+                      <p className="quiz-title">{quiz.title}</p>
+                      <div className="duration_section">
+                        <img className="duration_img" src={img1} alt="time" />
+                        <p className="quiz-duration">
+                          {quiz.duration_minutes} min
+                        </p>
+                      </div>
                     </div>
                   </div>
+                  <button
+                    className="quiz-btn"
+                    onClick={() => navigate(`/quiz/${quiz.id}`)}
+                  >
+                    Commencer
+                  </button>
                 </div>
-                <button
-                  className="quiz-btn"
-                  onClick={() => navigate(`/quiz/${quiz.id}`)}
-                >
-                  Commencer
-                </button>
-              </div>
-            ))
-          )}
-        </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
