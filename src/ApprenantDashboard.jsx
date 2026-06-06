@@ -125,22 +125,28 @@ function ApprenantDashboard() {
       </nav>
 
       <main className="main">
-        <h1>Bienvenue, {user.name} </h1>
-        <p>Tableau de bord — Apprenant</p>
+        <div className="apprenant-hero">
+          <div className="apprenant-hero-text">
+            <h1>Bienvenue, {user.name}</h1>
+            <h2>Cours disponibles</h2>
+            <p className="page-subtitle">
+              Découvrez tous les cours publiés par nos formateurs
+            </p>
+          </div>
 
-        <h1>Cours disponibles</h1>
-        <p className="page-subtitle">
-          Découvrez tous les cours publiés par nos formateurs
-        </p>
-
-        <div className="search-box">
-          <span className="search-icon">⌕</span>
-          <input
-            type="text"
-            placeholder="Search course by name..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          <div className="apprenant-hero-design">
+            <div className="hero-circle hero-circle-one"></div>
+            <div className="hero-circle hero-circle-two"></div>
+            <div className="search-box">
+              <span className="search-icon">⌕</span>
+              <input
+                type="text"
+                placeholder="Search course by name..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+          </div>
         </div>
 
         {courses.length === 0 ? (

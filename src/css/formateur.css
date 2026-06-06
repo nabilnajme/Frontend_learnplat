@@ -228,36 +228,176 @@
 
 /* ======== WELCOME ======== */
 .f-welcome {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 32px;
-  gap: 16px;
+  gap: 24px;
   flex-wrap: wrap;
+  min-height: 230px;
+  padding: 84px;
+  border-radius: 26px;
+  background:
+    radial-gradient(
+      circle at 86% 15%,
+      rgba(236, 72, 153, 0.2),
+      transparent 24%
+    ),
+    linear-gradient(135deg, rgba(13, 43, 31, 0.96), rgba(15, 122, 75, 0.78)),
+    url("../assests/teacher dashboard2.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 24px 55px rgba(13, 43, 31, 0.22);
+}
+
+.f-welcome::before {
+  content: "";
+  position: absolute;
+  left: 34px;
+  bottom: 0;
+  width: 150px;
+  height: 6px;
+  border-radius: 999px 999px 0 0;
+  background: #ec4899;
+}
+
+.f-welcome::after {
+  content: "";
+  position: absolute;
+  right: 72px;
+  top: 28px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.f-welcome > div,
+.f-welcome .f-create-btn {
+  position: relative;
+  z-index: 2;
 }
 
 .f-welcome h1 {
-  font-size: 26px;
-  font-weight: 700;
-  color: #0d2b1f;
-  margin-bottom: 4px;
+  max-width: 650px;
+  font-size: 34px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 12px;
 }
 
 .f-welcome p {
-  font-size: 14px;
-  color: #888;
+  max-width: 520px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #d1fae5;
+}
+
+.f-course-action-card {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  width: 315px;
+  padding: 22px;
+  border-radius: 20px;
+  background: #046645;
+  color: #fff;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.2);
+}
+
+.f-course-action-card::before {
+  content: "";
+  position: absolute;
+  width: 125px;
+  height: 125px;
+  top: -48px;
+  right: -32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.f-course-action-card > div,
+.f-course-plus,
+.f-get-started {
+  position: relative;
+  z-index: 2;
+}
+
+.f-course-plus {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 18px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 30px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.f-course-plus:hover {
+  background: #03b88a;
+  transform: rotate(90deg);
+}
+
+.f-course-action-card h2 {
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.f-course-action-card p {
+  margin: 0 0 18px;
+  color: #ecfdf5;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.f-get-started {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 13px 16px;
+  border: none;
+  border-radius: 14px;
+  background: #fff;
+  color: #0f7a4b;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.f-get-started span:last-child {
+  font-size: 24px;
+}
+
+.f-get-started:hover {
+  color: #1ac45b;
+  transform: translateY(-2px);
+}
+
+.f-old-dashboard-create-btn {
+  display: none;
 }
 
 .f-create-btn {
   position: relative;
-  padding: 12px 28px;
-  background: linear-gradient(135deg, #0d2b1f, #145232);
+  padding: 14px 30px;
+  background: #fff;
   font-size: 14px;
   font-weight: 700;
-  color: #fff;
-  border: 1.5px solid rgba(184, 223, 201, 0.7);
+  color: #0d2b1f;
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
   border-radius: 12px;
-  box-shadow: 0 10px 24px rgba(13, 43, 31, 0.18);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.16);
   transition:
     background 0.3s ease-in-out,
     color 0.3s ease-in-out,
@@ -353,10 +493,10 @@
 }
 
 .f-create-btn:hover {
-  background: #ffffff;
-  color: #0d2b1f;
-  border-color: #10b981;
-  box-shadow: 0 14px 34px rgba(16, 185, 129, 0.24);
+  background: #0a831f;
+  color: #fff;
+  border-color: #30d361;
+  box-shadow: 0 16px 36px rgba(84, 212, 138, 0.3);
   transform: translateY(-2px);
 }
 
@@ -1015,10 +1155,17 @@
   .f-welcome {
     align-items: flex-start;
     flex-direction: column;
+    min-height: auto;
+    padding: 26px 20px;
+    border-radius: 22px;
   }
 
   .f-welcome h1 {
-    font-size: 22px;
+    font-size: 26px;
+  }
+
+  .f-course-action-card {
+    width: 100%;
   }
 
   .f-create-btn {

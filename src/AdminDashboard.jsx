@@ -153,7 +153,7 @@ export default function AdminDashboard() {
         {page === "accueil" && (
           <div>
             <div className="ad-page-header">
-              <h1>Vue d'ensemble</h1>
+              <h1>Admin Dashboard</h1>
               <p>Bienvenue sur le tableau de bord administrateur</p>
             </div>
 

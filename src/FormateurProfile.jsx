@@ -24,6 +24,12 @@ export default function FormateurProfile() {
 
   async function saveInfo(e) {
     e.preventDefault();
+
+    if (phone !== "" && (phone.length !== 10 || phone[0] !== "0" || isNaN(phone))) {
+      showToast("Le numero doit contenir 10 chiffres et commencer par 0.", "error");
+      return;
+    }
+
     try {
       const res = await axios.put(
         API + "/dashboard/apprenant/profile",
@@ -112,7 +118,7 @@ export default function FormateurProfile() {
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    placeholder="Ex: 212600000000"
+                    placeholder="Ex: 0603880206"
                   />
                   <small>
                     Ce numero sera utilise par les apprenants pour vous contacter.

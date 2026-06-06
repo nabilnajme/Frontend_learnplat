@@ -94,17 +94,28 @@ export default function CoursesList() {
       </nav>
 
       <main className="main">
-        <h1>Mes cours</h1>
-        <p className="page-subtitle">Les cours auxquels vous êtes inscrit</p>
+        <div className="apprenant-hero courses-list-hero">
+          <div className="apprenant-hero-text">
+            <h1>Mes cours</h1>
+            <h2>Continuez votre apprentissage</h2>
+            <p className="page-subtitle">
+              Retrouvez ici tous les cours auxquels vous êtes inscrit
+            </p>
+          </div>
 
-        <div className="search-box">
-          <span className="search-icon">⌕</span>
-          <input
-            type="text"
-            placeholder="Search your enrolled courses..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          <div className="apprenant-hero-design">
+            <div className="hero-circle hero-circle-one"></div>
+            <div className="hero-circle hero-circle-two"></div>
+            <div className="search-box">
+              <span className="search-icon">⌕</span>
+              <input
+                type="text"
+                placeholder="Search your enrolled courses..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
+          </div>
         </div>
 
         {enrollments.length === 0 ? (

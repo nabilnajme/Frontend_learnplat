@@ -24,6 +24,12 @@ function FormateurDashboard() {
     user.role === "formateur" && !user.phone,
   );
   const [phone, setPhone] = useState("");
+  const [toast, setToast] = useState(null);
+
+  function showToast(message, type = "info") {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  }
 
   useEffect(() => {
     axios
@@ -44,6 +50,14 @@ function FormateurDashboard() {
   async function handleSavePhone(e) {
     e.preventDefault();
 
+    if (phone.length !== 10 || phone[0] !== "0" || isNaN(phone)) {
+      showToast(
+        "Le numero doit contenir 10 chiffres et commencer par 0.",
+        "error",
+      );
+      return;
+    }
+
     const res = await axios.put(
       API + "/dashboard/apprenant/profile",
       { name: user.name, email: user.email, phone: phone },
@@ -52,10 +66,24 @@ function FormateurDashboard() {
 
     localStorage.setItem("user", JSON.stringify(res.data));
     setShowPhonePopup(false);
+    showToast("votre numero enregistre avec succes!", "success");
   }
 
   return (
     <div className="layout">
+      {toast && (
+        <div className={"toast toast-" + toast.type}>
+          <div className="toast-icon">
+            {toast.type === "success"
+              ? "✓"
+              : toast.type === "error"
+                ? "!"
+                : "i"}
+          </div>
+          <p>{toast.message}</p>
+        </div>
+      )}
+
       {showPhonePopup && (
         <div className="phone-popup-bg">
           <form className="phone-popup" onSubmit={handleSavePhone}>
@@ -63,7 +91,7 @@ function FormateurDashboard() {
             <p>Les apprenants pourront vous contacter sur WhatsApp.</p>
             <input
               type="text"
-              placeholder="Ex: 212612345678"
+              placeholder="Ex: 0603880206"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               required
@@ -125,8 +153,32 @@ function FormateurDashboard() {
             <h1>Bonjour, Our Dear {user.name} </h1>
             <p>Gérez vos cours et suivez vos apprenants.</p>
           </div>
+
+          <div className="f-course-action-card">
+            <button
+              className="f-course-plus"
+              onClick={() => navigate("/dashboard/formateur/courses")}
+              title="Voir mes cours"
+            >
+              +
+            </button>
+
+            <div>
+              <h2>Create New Course</h2>
+              <p>Share your knowledge with students worldwide</p>
+            </div>
+
+            <button
+              className="f-get-started"
+              onClick={() => navigate("/dashboard/formateur/create")}
+            >
+              <span>Get Started</span>
+              <span>→</span>
+            </button>
+          </div>
+
           <button
-            className="f-create-btn"
+            className="f-create-btn f-old-dashboard-create-btn"
             onClick={() => navigate("/dashboard/formateur/create")}
           >
             Create course

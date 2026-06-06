@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API } from "./App";
-import { chapterFile } from "./helpers";
+import { chapterFile, courseImage } from "./helpers";
 import "./css/coursdetaill.css";
 
 import img1 from "./assests/time.png";
@@ -32,10 +32,10 @@ export default function CoursDetaill() {
   function contactFormateur() {
     if (!course.formateur || !course.formateur.phone) return;
 
-    const cleanPhone = course.formateur.phone.replace(/\D/g, "");
+    const whatsappPhone = "212" + course.formateur.phone.slice(1);
     const message = `Bonjour, je suis un etudiant dans votre cours: ${course.title}`;
     window.open(
-      `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`,
+      `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`,
       "_blank",
     );
   }
@@ -174,37 +174,55 @@ export default function CoursDetaill() {
 
       {/* HERO CARD */}
       <div className="hero-card">
-        <div className="hero-top">
-          <span className="hero-badge">Cours</span>
-          <span className="hero-author">
-            Par {course.formateur ? course.formateur.name : "—"}
-          </span>
-          {course.formateur && course.formateur.phone && (
-            <button className="whatsapp-btn" onClick={contactFormateur}>
-              Contacter
-            </button>
-          )}
-        </div>
-        <h1>{course.title}</h1>
-        <p>{course.description || "Pas de description."}</p>
-        <div className="hero-stats">
-          <div className="stat">
-            <span className="stat-icon"></span>
-            <span>{course.chapters.length} chapitres</span>
+        <div className="hero-content">
+          <div className="hero-top">
+            <span className="hero-badge">Cours</span>
+            <span className="hero-author">
+              Par {course.formateur ? course.formateur.name : "—"}
+            </span>
+            {course.formateur && course.formateur.phone && (
+              <button className="whatsapp-btn" onClick={contactFormateur}>
+                Contacter
+              </button>
+            )}
           </div>
-          {user.role !== "formateur" && (
+          <h1>{course.title}</h1>
+          <p>{course.description || "Pas de description."}</p>
+          <div className="hero-stats">
             <div className="stat">
-              <span className="stat-icon"></span>
-              <span>{progressPercent}% termine</span>
+              <span>{course.chapters.length} chapitres</span>
+            </div>
+            {user.role !== "formateur" && (
+              <div className="stat">
+                <span>{progressPercent}% termine</span>
+              </div>
+            )}
+            <div className="stat">
+              <span>{course.quizzes.length} quiz</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="hero-side">
+          {course.image ? (
+            <img src={courseImage(course.image)} alt={course.title} />
+          ) : (
+            <div className="hero-image-empty">
+              {course.title.charAt(0).toUpperCase()}
             </div>
           )}
-          <div className="stat">
-            <span className="stat-icon"></span>
-            <span>
-              {course.quizzes.length} quiz
-              {course.quizzes.length > 1 ? "" : ""}
-            </span>
-          </div>
+
+          {user.role !== "formateur" && (
+            <div className="hero-progress">
+              <div className="hero-progress-head">
+                <span>Votre progression</span>
+                <strong>{progressPercent}%</strong>
+              </div>
+              <div className="hero-progress-bar">
+                <div style={{ width: progressPercent + "%" }}></div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div className="detail-body">

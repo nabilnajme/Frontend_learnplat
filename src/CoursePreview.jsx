@@ -45,10 +45,10 @@ export default function CoursePreview() {
   function contactFormateur() {
     if (!course.formateur || !course.formateur.phone) return;
 
-    const cleanPhone = course.formateur.phone.replace(/\D/g, "");
+    const whatsappPhone = "212" + course.formateur.phone.slice(1);
     const message = `Bonjour, je veux plus d'informations sur votre cours: ${course.title}`;
     window.open(
-      `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`,
+      `https://wa.me/${whatsappPhone}?text=${encodeURIComponent(message)}`,
       "_blank",
     );
   }

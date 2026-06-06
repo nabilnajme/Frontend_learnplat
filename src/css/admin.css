@@ -164,19 +164,68 @@
 }
 
 .ad-page-header {
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
   margin-bottom: 32px;
+  padding: 34px;
+  border-radius: 26px;
+  background:
+    radial-gradient(
+      circle at 86% 12%,
+      rgba(236, 72, 153, 0.28),
+      transparent 25%
+    ),
+    linear-gradient(135deg, rgba(17, 24, 39, 0.96), rgba(79, 70, 229, 0.76)),
+    url("../assests/admin.jpg");
+  background-size: cover;
+  background-position: right center;
+  background-repeat: no-repeat;
+  box-shadow: 0 24px 55px rgba(17, 24, 39, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ad-page-header::before {
+  content: "";
+  position: absolute;
+  left: 34px;
+  bottom: 0;
+  width: 150px;
+  height: 6px;
+  border-radius: 999px 999px 0 0;
+  background: #ec4899;
+}
+
+.ad-page-header::after {
+  content: "";
+  position: absolute;
+  right: 76px;
+  top: 28px;
+  width: 145px;
+  height: 145px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .ad-page-header h1 {
-  font-size: 28px;
-  font-weight: 700;
-  color: #0a0f1e;
-  margin-bottom: 6px;
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+  font-size: 36px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 12px;
 }
 
 .ad-page-header p {
-  font-size: 14px;
-  color: #9ca3af;
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: #e0e7ff;
 }
 
 /* ======== STAT CARDS ======== */
@@ -576,8 +625,14 @@
     padding: 24px 16px 104px;
   }
 
+  .ad-page-header {
+    min-height: 190px;
+    padding: 26px 20px;
+    border-radius: 22px;
+  }
+
   .ad-page-header h1 {
-    font-size: 24px;
+    font-size: 27px;
   }
 
   .ad-stats {
